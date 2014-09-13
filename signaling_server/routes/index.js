@@ -9,6 +9,4 @@ exports.index = function(req, res){
   req.addListener('end', function() {
       file.serve(req, res);
   }).resume();
-  res.render('index', { Info: 'SIGNALING' });
-
 };
