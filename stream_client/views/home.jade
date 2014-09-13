@@ -57,10 +57,15 @@ html
 					$("video").on("click", function(e){
 						var parentOffset = $(this).parent().offset(); 
 
-						relX = e.pageX - parentOffset.left;
-						relY = e.pageY - parentOffset.top;
+						var relX = e.pageX - parentOffset.left;
+						var relY = e.pageY - parentOffset.top;
 						console.log(relX+" "+relY);
+						websocket.push(JSON.stringify({
+							data: {x: relX, y: relY},
+							channel: config.channel
+						}))
 					});
+
 					websocket.push(JSON.stringify({
 						open: true,
 						channel: config.channel
