@@ -1,0 +1,16 @@
+html
+	head
+		title= title
+		script(src="./javascripts/webrtc.io.js")
+body
+		h1= title
+		video(id="remote", autoplay="autoplay")
+		script.
+			rtc.connect('ws://localhost:7000/');
+
+			rtc.on('message', function(stream){
+				console.log(stream)
+				rtc.attachStream(stream, 'remote');
+			});
+
+			console.log("Begin Socket.io")

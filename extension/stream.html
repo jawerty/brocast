@@ -1,0 +1,58 @@
+<head>
+    <title>Screen sharing example</title>
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js "></script>
+</head>
+<body>
+    <p align="center"><input type="button" id="share_screen" value="Share screen"/></p>
+    <p align="center"><video id="video" autoplay/></p>
+    <script language="javascript">
+         navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.getUserMedia;
+         $('#share_screen').click(function() {
+              navigator.getUserMedia({
+                       audio: false,
+                       video: {
+                           mandatory: {
+                               chromeMediaSource: 'desktop',
+                               maxWidth: 1280,
+                               maxHeight: 720
+                           },
+                           optional: []
+                       }
+                   }, function(stream) {
+                       document.getElementById('video').src = window.URL.createObjectURL(stream);;
+                       $('#share_screen').hide();
+                   }, function() {
+                       alert('Error, my friend. Screen stream is not available. Try in latest Chrome with Screen sharing enabled in about:flags.');
+                     }
+              )
+         })
+    </script>
+</body>
+</html>
+
+<!--<html>
+<head>
+<style>
+  body {
+    background: white;
+    display: -webkit-flex;
+    -webkit-justify-content: center;
+    -webkit-align-items: center;
+    -webkit-flex-direction: column;
+  }
+  video {
+    width: 640px;
+    height: 480px;
+    border: 1px solid #e2e2e2;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  }
+</style>
+
+
+</head>
+<body>
+  <video id="video" autoplay></video>
+  <button id="cancel">Cancel</button>
+  <script src="stream.js"></script>
+</body>
+</html>-->
