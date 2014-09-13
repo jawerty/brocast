@@ -38,10 +38,15 @@ html
 					console.log(relX+" "+relY)
 
 					waitForSocketConnection(websocket,	function(){
-						websocket.send({
-							x: relX,
-							y: relY
-						});
+						try {
+							websocket.send({
+								x: relX,
+								y: relY
+							});
+						} catch(e) {
+							console.log(e)
+						}
+						
 					});
 					
 				});
