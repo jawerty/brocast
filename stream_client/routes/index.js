@@ -10,5 +10,5 @@ exports.index = function(req, res){
   	console.log("No session and user data found.")
   }
   
-  res.render('home', { title: 'Brocast' });
+  res.render('home', { title: 'Landing' });
 };
