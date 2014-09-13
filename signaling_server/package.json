@@ -1,0 +1,10 @@
+{
+  "name": "brocast_signal_server",
+  "description": "signaling",
+  "author": "teethpaste",
+  "dependencies": {
+    "express": "*",
+    "socket.io": "*"
+  },
+  "engine": "node 0.4.1"
+}
