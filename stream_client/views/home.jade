@@ -37,9 +37,9 @@ html
 					var relY = e.pageY - parentOffset.top;
 					console.log(relX+" "+relY)
 
-					waitForSocketConnection(websocket,	function(){
+					waitForSocketConnection(websocket, function(){
 						try {
-							websocket.send({
+							websocket.push({
 								x: relX,
 								y: relY
 							});
