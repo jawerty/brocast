@@ -41,11 +41,10 @@ function setupRTCMultiConnection(stream) {
     var domain = 'http://brocastme.herokuapp.com';
     var resultingURL = domain + '/?userid=' + connection.userid + '&sessionid=' + connection.channel;
 
-    chrome.tabs.create({
-        url: resultingURL
+    chrome.windows.create({'url': 'getURL.html', 'type': 'popup', 'width': 350, 'height': 150, 'left': 200, 'top': 200}, function(window) {});
+      chrome.runtime.sendMessage({
+        resultingURL: resultingURL
     });
-
-    chrome.runtime.sendMessage({resultingURL: resultingURL});
 }
 
 //'wss://wsnodejs.nodejitsu.com:443'
