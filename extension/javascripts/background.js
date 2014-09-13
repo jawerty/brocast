@@ -1,3 +1,9 @@
+var socket = io.connect('ws://brocast-signalingserver.herokuapp.com');
+
+socket.on('coordinates', function(data){
+  console.log(data)
+});
+
 function error() {
   console.log('Unable to connect to ' + webSocketURI);
   if(connection.stats.numberOfConnectedUsers == 0) {
