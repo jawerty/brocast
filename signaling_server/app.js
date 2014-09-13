@@ -10,6 +10,14 @@ var express = require('express')
 
 var app = express();
 
+var io = require('socket.io').listen(app);
+
+ io.sockets.on('connection', function(socket) {
+         socket.on('message', function(message) {
+         socket.broadcast.emit('message', message);
+     });
+ });
+ 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
@@ -25,6 +33,7 @@ app.configure(function(){
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
+
 
 app.get('/', routes.index);
 
