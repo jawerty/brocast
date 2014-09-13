@@ -53,19 +53,19 @@ html
 				var websocket = new WebSocket('ws://brocast-signalingserver.herokuapp.com');
 
 				websocket.onopen = function () {
+					connection.onstream = function (e) {
+						$("video").on("click", function(e){
+							var parentOffset = $(this).parent().offset(); 
 
-					$("video").on("click", function(e){
-						var parentOffset = $(this).parent().offset(); 
-
-						var relX = e.pageX - parentOffset.left;
-						var relY = e.pageY - parentOffset.top;
-						console.log(relX+" "+relY);
-						websocket.push(JSON.stringify({
-							data: {x: relX, y: relY},
-							channel: config.channel
-						}))
-					});
-
+							var relX = e.pageX - parentOffset.left;
+							var relY = e.pageY - parentOffset.top;
+							console.log(relX+" "+relY);
+							websocket.push(JSON.stringify({
+								data: {x: relX, y: relY},
+								channel: config.channel
+							}))
+						});
+					}
 					websocket.push(JSON.stringify({
 						open: true,
 						channel: config.channel
