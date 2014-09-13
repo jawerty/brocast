@@ -40,7 +40,7 @@ html
 					console.log(relX+" "+relY)
 
 					waitForSocketConnection(websocket,	function(){
-						websocket.send('coordinates', {
+						websocket.send({
 							x: relX,
 							y: relY
 						});
@@ -77,7 +77,7 @@ html
 			                waitForSocketConnection(socket, callback);
 			            }
 
-			        }, 5); // wait 5 milisecond for the connection...
+			        }, 5); 
 			}
 
 			function openSignalingChannel(config) {
