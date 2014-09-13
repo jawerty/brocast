@@ -48,9 +48,8 @@ html
 			}
 
 			function openSignalingChannel(config) {
-				
+
 				config.channel = config.channel || this.channel;
-				//'wss://wsnodejs.nodejitsu.com:443'
 				var websocket = new WebSocket('ws://brocast-signalingserver.herokuapp.com');
 
 				websocket.onopen = function () {
@@ -73,6 +72,7 @@ html
 				websocket.push = websocket.send;
 
 				websocket.send = function (data) {
+					console.log(data+" DATA")
 					websocket.push(JSON.stringify({
 						data: data,
 						channel: config.channel
