@@ -37,14 +37,6 @@ var app = http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening");
 });
 
-var io = require('socket.io').listen(app);
-
-io.sockets.on('connection', function(socket) {
-   socket.on('coordinates', function(data) {
-       socket.broadcast.emit('coordinates', data);
-   });
-});
-
 /*// HTTP server
 var app = require('http').createServer(function(request, response) {
     
@@ -70,6 +62,10 @@ function onRequest(socket) {
         if (message.type === 'utf8') {
             onMessage(JSON.parse(message.utf8Data), websocket);
         }
+    });
+
+    websocket.on('coordinates', function(message) {
+        sendMessage("coordinates", websocket);
     });
 
     websocket.on('close', function() {
