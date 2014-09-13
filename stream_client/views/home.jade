@@ -7,6 +7,8 @@ body
 		h1= title
 		div(id="videoStream")
 		script.
+			var sessionID = !{sessionID}
+			var userID = !{userID}
 			console.log("Begin RTC Connection")
 
 			var connection = new RTCMultiConnection(sessionID);
