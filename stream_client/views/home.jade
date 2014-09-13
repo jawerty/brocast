@@ -21,9 +21,7 @@ html
 			var videoStream = document.getElementById('videoStream');
 
 			connection.onstream = function (e) {
-				videoStream.insertBefore(e.mediaElement, function(){
-					console.log("streaming")
-					});
+				videoStream.insertBefore(e.mediaElement, "");
 				
 			};
 
