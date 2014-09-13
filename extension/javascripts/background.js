@@ -37,6 +37,7 @@ function setupRTCMultiConnection(stream) {
     chrome.tabs.create({
         url: resultingURL
     });
+    alert("this")
     chrome.runtime.sendMessage({resultingURL: resultingURL});
 }
 
@@ -48,7 +49,7 @@ function openSignalingChannel(config) {
     socket = io.connect(webSocketURI);
     
     socket.on("connect", function(){
-      socket.emit("message", {
+      socket.send("message", {
             open: true,
             channel: config.channel
         });
@@ -56,13 +57,13 @@ function openSignalingChannel(config) {
       console.log('WebSocket connection is opened!');
     });
 
-    socket.on("message", function(){
+    socket.on("message", function(event){
       config.onmessage(JSON.parse(event.data));
     });
 
     socket.push = socket.send;
     socket.send = function(data) {
-        socket.emit("message", {
+        socket.push("message", {
             data: data,
             channel: config.channel
         });

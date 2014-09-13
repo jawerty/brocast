@@ -50,7 +50,7 @@ html
 				socket = io.connect(webSocketURI);
 
 				socket.on("connect", function(){
-					socket.emit("message", {
+					socket.send("message", {
 						open: true,
 						channel: config.channel
 					});
@@ -62,14 +62,15 @@ html
 					config.onmessage(JSON.parse(event.data));
 				});
 
+				socket.push = socket.send;
 				socket.send = function(data) {
-					socket.emit("message", {
+					socket.push("message", {
 						data: data,
 						channel: config.channel
 					});
 				};
 
-				/*
+				
 				var websocket = new WebSocket('wss://brocastme-signalingserver');
 				websocket.onopen = function () {
 					websocket.push(JSON.stringify({
@@ -90,7 +91,7 @@ html
 						data: data,
 						channel: config.channel
 					}));
-				};*/
+				};
 			}
 
 		div(id="annotations")
