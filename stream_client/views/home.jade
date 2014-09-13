@@ -19,6 +19,12 @@ html
 
 			var videoStream = document.getElementById('videoStream');
 
+			connection.onstatechange = function (state) {
+				var div = document.createElement('div');
+				div.innerHTML = '<p>' + state + '</p>';
+				videoStream.appendChild(div);
+			};
+
 			connection.onstream = function (e) {
 				videoStream.insertBefore(e.mediaElement);
 			};
@@ -44,7 +50,7 @@ html
 				socket = io.connect(webSocketURI);
 
 				socket.on("connect", function(){
-					socket.emit({
+					socket.emit("message", {
 						open: true,
 						channel: config.channel
 					});
@@ -52,17 +58,17 @@ html
 					console.log('WebSocket connection is opened!');
 				});
 
-				socket.on("message", function(){
+				socket.on("message", function(event){
 					config.onmessage(JSON.parse(event.data));
 				});
 
-				socket.push = socket.send;
 				socket.send = function(data) {
-					socket.emit({
+					socket.emit("message", {
 						data: data,
 						channel: config.channel
 					});
 				};
+
 				/*
 				var websocket = new WebSocket('wss://brocastme-signalingserver');
 				websocket.onopen = function () {
