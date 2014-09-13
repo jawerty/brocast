@@ -4,7 +4,9 @@
   "version": "0.0.1",
   "manifest_version": 2,
   "browser_action": {
-    "default_icon": "images/Brocast_logo.png"
+    "default_icon": "images/Brocast_logo.png",
+    "default_title": "Share Screen",
+    "default_popup": "popup.html"
   },
   "background": {
     "scripts": ["javascripts/background.js", "javascripts/jquery-1.11.1.js", "javascripts/webrtc.io.js", "javascripts/socket.io-1.0.6.js", "javascripts/RTCMultiConnection-v1.9.js"]
@@ -16,6 +18,7 @@
     }
   ],
   "icons": {
+
   },
   "permissions": [
     "desktopCapture",

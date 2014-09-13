@@ -69,62 +69,57 @@ function openSignalingChannel(config) {
     };
 }
 
-chrome.browserAction.onClicked.addListener(function(tab) {
-  var socket = io();
-  SIGNALING_SERVER = "ws://brocastme-signalingserver";
-  var channel = location.href.replace( /\/|:|#|%|\.|\[|\]/g , '');
-  var sender = Math.round(Math.random() * 999999999) + 999999999;
+function gotStream(stream) {
+  console.log("Received local stream");
+  console.log(stream);
 
-  function gotStream(stream) {
+  setupRTCMultiConnection(stream);
 
-    console.log("Received local stream");
-    console.log(stream);
+  /*$.ajax({ 
+      url: "http://localhost:3000", 
+      data: "screenshare="+JSON.stringify(stream), 
+      success: function(data){
+        console.log(data)
+      }, 
+      type: 'POST', 
+      dataType: 'json' 
+  });*/
 
-    setupRTCMultiConnection(stream);
+  chrome.storage.sync.set({"stream": stream}, function(data) {
+    //chrome.tabs.create({'url': chrome.extension.getURL('stream.html')}, function(tab) {
+      //console.log(tab)
+    //});
 
-    /*$.ajax({ 
-        url: "http://localhost:3000", 
-        data: "screenshare="+JSON.stringify(stream), 
-        success: function(data){
-          console.log(data)
-        }, 
-        type: 'POST', 
-        dataType: 'json' 
-    });*/
+  });
+}
 
-    chrome.storage.sync.set({"stream": stream}, function(data) {
-      //chrome.tabs.create({'url': chrome.extension.getURL('stream.html')}, function(tab) {
-        //console.log(tab)
-      //});
+function getUserMediaError() {
+  console.log("getUserMedia() failed.");
+}
 
-    });
-    
-    
+function onAccessApproved(id) {
+  if (!id) {
+    console.log("Access rejected.");
+    return;
   }
+  navigator.webkitGetUserMedia({
+      audio:false,
+      video: { mandatory: { chromeMediaSource: "desktop",
+                            chromeMediaSourceId: id } }
+  }, gotStream, getUserMediaError);
+}
 
-  function getUserMediaError() {
-    console.log("getUserMedia() failed.");
-  }
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    var socket = io();
+    SIGNALING_SERVER = "ws://localhost:3000";
+    var channel = location.href.replace( /\/|:|#|%|\.|\[|\]/g , '');
+    var sender = Math.round(Math.random() * 999999999) + 999999999;
 
-  function onAccessApproved(id) {
-    if (!id) {
-      console.log("Access rejected.");
-      return;
-    }
-    navigator.webkitGetUserMedia({
-        audio:false,
-        video: { mandatory: { chromeMediaSource: "desktop",
-                              chromeMediaSourceId: id } }
-    }, gotStream, getUserMediaError);
-  }
-
-  var pending_request_id = null;
-
-  //document.querySelector('#start').addEventListener('click', function(e) {
+    var pending_request_id = null;
 
     pending_request_id = chrome.desktopCapture.chooseDesktopMedia(
         ["screen", "window"], onAccessApproved);
-  //});
+
+    console.log("USING ANNOTATIONS: " + request.useAnnotations);
 });
-
-
