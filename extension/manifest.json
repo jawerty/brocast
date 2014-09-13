@@ -1,19 +1,18 @@
 {
-  "name": "ScreenShare",
+  "name": "brocast",
   "description": "Share your screen in an instant",
   "version": "0.0.1",
   "manifest_version": 2,
   "browser_action": {
-    "default_icon": "caster_logo.png"  // optional
-    // equivalent to "default_icon": { "19": "images/icon19.png" }
+    "default_icon": "images/Brocast_logo.png"
   },
   "background": {
-    "scripts": ["background.js", "jquery-1.11.1.js", "webrtc.io.js", "socket.io-1.0.6.js", "RTCMultiConnection-v1.9.js"]
+    "scripts": ["javascripts/background.js", "javascripts/jquery-1.11.1.js", "javascripts/webrtc.io.js", "javascripts/socket.io-1.0.6.js", "javascripts/RTCMultiConnection-v1.9.js"]
   },
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
-      "js": ["jquery-1.11.1.js"]
+      "js": ["javascripts/jquery-1.11.1.js"]
     }
   ],
   "icons": {
