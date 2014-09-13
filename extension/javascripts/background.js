@@ -1,9 +1,3 @@
-var socket = io.connect('ws://brocast-signalingserver.herokuapp.com');
-
-socket.on('coordinates', function(data){
-  console.log(data)
-});
-
 function error() {
   console.log('Unable to connect to ' + webSocketURI);
   if(connection.stats.numberOfConnectedUsers == 0) {
@@ -59,7 +53,7 @@ var webSocketURI = 'ws://brocast-signalingserver.herokuapp.com';
 
 function openSignalingChannel(config) {
     config.channel = config.channel || this.channel;
-    var websocket = new WebSocket(webSocketURI);
+    websocket = new WebSocket(webSocketURI);
     websocket.onopen = function() {
         websocket.push(JSON.stringify({
             open: true,
@@ -73,6 +67,7 @@ function openSignalingChannel(config) {
     };
     websocket.onmessage = function(event) {
         config.onmessage(JSON.parse(event.data));
+        console.log(event)
     };
     websocket.push = websocket.send;
     websocket.send = function(data) {
