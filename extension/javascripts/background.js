@@ -31,14 +31,14 @@ function setupRTCMultiConnection(stream) {
         dontTransmit: true
     });
 
-    var domain = 'http://localhost:3000';
+    var domain = 'http://brocastme.herokuapp.com';
     var resultingURL = domain + '/?userid=' + connection.userid + '&sessionid=' + connection.channel;
     chrome.tabs.create({
         url: resultingURL
     });
 }
 
-var webSocketURI = 'wss://localhost:7000';
+var webSocketURI = 'wss://brocastme-signalingserver.herokuapp.com';
 
 function openSignalingChannel(config) {
     config.channel = config.channel || this.channel;
@@ -71,7 +71,7 @@ function openSignalingChannel(config) {
 
 chrome.browserAction.onClicked.addListener(function(tab) {
   var socket = io();
-  SIGNALING_SERVER = "ws://localhost:3000";
+  SIGNALING_SERVER = "ws://brocastme-signalingserver";
   var channel = location.href.replace( /\/|:|#|%|\.|\[|\]/g , '');
   var sender = Math.round(Math.random() * 999999999) + 999999999;
 

@@ -36,7 +36,7 @@ body
 
 			function openSignalingChannel(config) {
 				config.channel = config.channel || this.channel;
-				var websocket = new WebSocket('wss://brocastme.herokuapp.com');
+				var websocket = new WebSocket('wss://brocastme-signalingserver');
 				websocket.onopen = function () {
 					websocket.push(JSON.stringify({
 						open: true,
