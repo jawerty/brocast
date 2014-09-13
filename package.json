@@ -1,28 +1,13 @@
 {
-  "name": "brocast",
-  "version": "0.1.0",
-  "description": "Live stream your desktop/browser like a bro",
-  "main": "index.js",
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
-    "start": "node index.js"
+    "start": "node app"
   },
   "dependencies": {
-    "express": "~3.4.x"
-  },
-  "engines": {
-    "node": "0.10.x"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jawerty/brocast"
-  },
-  "keywords": [
-    "remote", "control", "desktop", "brocast", "pennapps"
-  ],
-  "author": "Jared Wright",
-  "contributors": [
-    "Evan Klein <elklein96@gmail.com> (http://elkdev.com)",
-    "Bogdan Vitoc <bogdanvitoc@gmail.com>"
-  ],
-  "license": "MIT"
+    "express": "3.0.2",
+    "jade": "*",
+    "ws": "*"
+  }
 }
