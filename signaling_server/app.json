@@ -1,0 +1,7 @@
+{
+  "name": "brocast",
+  "description": "Live stream your desktop/browser like a bro",
+  "repository": "https://github.com/jawerty/brocast",
+  "logo": "http://brocast.me/extension/images/Brocast_logo.png",
+  "keywords": ["remote", "control", "desktop", "brocast", "pennapps"]
+}

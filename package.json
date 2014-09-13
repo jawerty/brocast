@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "brocast",
   "version": "0.1.0",
   "description": "Live stream your desktop/browser like a bro",
@@ -26,3 +27,16 @@
   ],
   "license": "MIT"
 }
+=======
+  "name": "brocast_client",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "express": "3.0.2",
+    "jade": "*"
+  }
+}
+>>>>>>> 0524ac2fe20a03cc725a8d351b62262124fc3a4b
