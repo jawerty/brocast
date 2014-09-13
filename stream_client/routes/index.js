@@ -5,9 +5,10 @@ exports.index = function(req, res){
   if (req.query.userid && req.query.sessionid) {
   	var uID = req.query.userid
   	var sID = req.query.sessionid;
+  	res.render('home', { title: 'Brocast', userID: uID, sessionID: sID });
   } else {
   	console.log("No session and user data found.")
   }
   
-  res.render('home', { title: 'Brocast', userID: uID, sessionID: sID });
+  res.render('home', { title: 'Landing' });
 };
