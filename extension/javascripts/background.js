@@ -38,7 +38,7 @@ function setupRTCMultiConnection(stream) {
         dontTransmit: true
     });
 
-    var domain = 'http://brocastme.herokuapp.com';
+    var domain = 'http://localhost:4000';
     var resultingURL = domain + '/?userid=' + connection.userid + '&sessionid=' + connection.channel;
 
     chrome.tabs.create({
@@ -49,7 +49,7 @@ function setupRTCMultiConnection(stream) {
 }
 
 //'wss://wsnodejs.nodejitsu.com:443'
-var webSocketURI = 'wss://localhost:12034/';
+var webSocketURI = 'ws://brocast-signalingserver.herokuapp.com';
 
 function openSignalingChannel(config) {
     config.channel = config.channel || this.channel;
