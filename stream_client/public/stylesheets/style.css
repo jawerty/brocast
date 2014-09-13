@@ -1,6 +1,6 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  overflow: hidden;
 }
 
 a {
@@ -8,15 +8,18 @@ a {
 }
 
 #videoStream{
-	color: #0F0F0F;
+	background-color: #0F0F0F;
 	float: left;
-	width: 75%;
+	width: 70%;
 	height: 65%;
+	padding-left: 2%;
 }
 
 #annotations{
-	color: #F0F0F0;
+	background-color: #F0F0F0;
 	float: right;
-	width: 25%;
+	width: 24%;
 	height: 65%;
+	margin-left: 2%;
+	padding-right: 2%;
 }
