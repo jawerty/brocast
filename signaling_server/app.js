@@ -64,10 +64,6 @@ function onRequest(socket) {
         }
     });
 
-    websocket.on('coordinates', function(message) {
-        sendMessage("coordinates", websocket);
-    });
-
     websocket.on('close', function() {
         truncateChannels(websocket);
     });
