@@ -25,13 +25,13 @@ html
 			connection.onstream = function (e) {
 				videoStream.appendChild(e.mediaElement);
 
-				$(e.mediaElement).on("click", function(e){
+				/*$(e.mediaElement).on("click", function(e){
 					var parentOffset = $(this).parent().offset(); 
 
 					relX = e.pageX - parentOffset.left;
 					relY = e.pageY - parentOffset.top;
 					console.log(relX+" "+relY);
-				});
+				});*/
 			};
 
 			var seshInfo = {
@@ -53,7 +53,14 @@ html
 				var websocket = new WebSocket('ws://brocast-signalingserver.herokuapp.com');
 
 				websocket.onopen = function () {
-					
+
+					$("video").on("click", function(e){
+						var parentOffset = $(this).parent().offset(); 
+
+						relX = e.pageX - parentOffset.left;
+						relY = e.pageY - parentOffset.top;
+						console.log(relX+" "+relY);
+					});
 					websocket.push(JSON.stringify({
 						open: true,
 						channel: config.channel
