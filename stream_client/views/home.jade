@@ -15,57 +15,53 @@ body
 
 			console.log("Begin Socket.io")
 
-            var connection = new RTCMultiConnection(params.sessionid);
+			var connection = new RTCMultiConnection(params.sessionid);
 
-            connection.bandwidth = {};
+			connection.bandwidth = {};
 
-            connection.openSignalingChannel = openSignalingChannel;
+			connection.openSignalingChannel = openSignalingChannel;
 
-            // on successfully getting shared desktop
-            var participants = document.getElementById('participants');
+			var participants = document.getElementById('participants');
             
-            // http://www.rtcmulticonnection.org/docs/onstream/
-            connection.onstream = function (e) {
-                participants.insertBefore(e.mediaElement, participants.firstChild);
-            };
-            
-            var sessionDescription = {
-                userid: params.userid,
-                extra: {},
-                session: {
-                    video: true,
-                    oneway: true
-                },
-                sessionid: params.sessionid
-            };
-            
-            if(params.userid && params.sessionid) {
-                // http://www.rtcmulticonnection.org/docs/join/
-                connection.join(sessionDescription);
-            }
+			connection.onstream = function (e) {
+				participants.insertBefore(e.mediaElement, participants.firstChild);
+			};
 
-            // using websockets for signaling
-            function openSignalingChannel(config) {
-                config.channel = config.channel || this.channel;
-                var websocket = new WebSocket('wss://wsnodejs.nodejitsu.com:443');
-                websocket.onopen = function () {
-                    websocket.push(JSON.stringify({
-                        open: true,
-                        channel: config.channel
-                    }));
-                    if (config.callback) config.callback(websocket);
-                };
-                websocket.onerror = function() {
-                    alert('Unable to connect to wss://www.webrtc-experiment.com:8563');
-                };
-                websocket.onmessage = function (event) {
-                    config.onmessage(JSON.parse(event.data));
-                };
-                websocket.push = websocket.send;
-                websocket.send = function (data) {
-                    websocket.push(JSON.stringify({
-                        data: data,
-                        channel: config.channel
-                    }));
-                };
-            }
+			var sessionDescription = {
+				userid: params.userid,
+				extra: {},
+				session: {
+					video: true,
+					oneway: true
+				},
+				sessionid: params.sessionid
+			};
+
+			if (params.userid && params.sessionid) {
+				connection.join(sessionDescription);
+			}
+
+			function openSignalingChannel(config) {
+				config.channel = config.channel || this.channel;
+				var websocket = new WebSocket('wss://wsnodejs.nodejitsu.com:443');
+				websocket.onopen = function () {
+					websocket.push(JSON.stringify({
+						open: true,
+						channel: config.channel
+					}));
+					if (config.callback) config.callback(websocket);
+				};
+				websocket.onerror = function() {
+					alert('Unable to connect to wss://www.webrtc-experiment.com:8563');
+				};
+				websocket.onmessage = function (event) {
+					config.onmessage(JSON.parse(event.data));
+				};
+				websocket.push = websocket.send;
+				websocket.send = function (data) {
+					websocket.push(JSON.stringify({
+						data: data,
+						channel: config.channel
+					}));
+				};
+			}
