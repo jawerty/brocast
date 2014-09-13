@@ -41,7 +41,7 @@ html
 
 					//var socket = io.connect('ws://brocast-signalingserver.herokuapp.com');
 
-					websocket.send('coordinates', {
+					websocket.push('coordinates', {
 						x: relX,
 						y: relY
 					});
