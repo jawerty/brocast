@@ -1,6 +1,8 @@
 var connection;
 
 function setupRTCMultiConnection(stream) {
+    console.log("setupRTC called!");
+    alert("SetupRTC called!");
     connection = new RTCMultiConnection();
     
     connection.channel = connection.token();
@@ -36,9 +38,12 @@ function setupRTCMultiConnection(stream) {
     chrome.tabs.create({
         url: resultingURL
     });
+    console.log("RESULTING URL FROM BACKGROUND: " + resultingURL);
+    alert("halt");
+    chrome.runtime.sendMessage({resultingURL: resultingURL});
 }
 
-var webSocketURI = 'wss://brocastme-signalingserver.herokuapp.com';
+var webSocketURI = 'ws://brocast-signalingserver.herokuapp.com';
 
 function openSignalingChannel(config) {
     config.channel = config.channel || this.channel;
@@ -111,15 +116,17 @@ function onAccessApproved(id) {
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    var socket = io();
-    SIGNALING_SERVER = "ws://localhost:3000";
-    var channel = location.href.replace( /\/|:|#|%|\.|\[|\]/g , '');
-    var sender = Math.round(Math.random() * 999999999) + 999999999;
+    if (request.useAnnotations && request.useRemoteControl) {
+      var socket = io();
+      SIGNALING_SERVER = "ws://localhost:3000";
+      var channel = location.href.replace( /\/|:|#|%|\.|\[|\]/g , '');
+      var sender = Math.round(Math.random() * 999999999) + 999999999;
 
-    var pending_request_id = null;
+      var pending_request_id = null;
 
-    pending_request_id = chrome.desktopCapture.chooseDesktopMedia(
-        ["screen", "window"], onAccessApproved);
+      pending_request_id = chrome.desktopCapture.chooseDesktopMedia(
+          ["screen", "window"], onAccessApproved);
 
-    console.log("USING ANNOTATIONS: " + request.useAnnotations);
+      console.log("USING ANNOTATIONS: " + request.useAnnotations);
+    }
 });

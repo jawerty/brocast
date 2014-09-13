@@ -6,10 +6,13 @@ $(document).ready(function() {
 		chrome.runtime.sendMessage({
 			useAnnotations: annotationsChecked,
 			useRemoteControl: remoteControlChecked
-			}, function(response) {
-
-		  console.log(response.farewell);
-
 		});
+	});
+
+	chrome.runtime.onMessage.addListener(
+	  function(request, sender, sendResponse) {
+	  	if (request.resultingURL) {
+	  		alert("resultingURL: " + request.resultingURL);
+	  	}
 	});
 });
