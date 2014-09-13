@@ -1,5 +1,10 @@
 var fs = require('fs');
 
+
+/**
+ * Module dependencies.
+ */
+
 var express = require('express')
   , routes = require('./routes')
   , http = require('http')
@@ -8,7 +13,7 @@ var express = require('express')
 var app = express();
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
+  app.set('port', process.env.PORT || 12034);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.favicon());
@@ -25,13 +30,18 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 
+var _static = require('node-static');
+var file = new _static.Server('./public');
 
 var app = http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
-  request.addListener('end', function() {
-      file.serve(request, response);
-  }).resume();
+  console.log("Express server listening");
 });
+
+
+/*// HTTP server
+var app = require('http').createServer(function(request, response) {
+    
+});*/
 
 var WebSocketServer = require('websocket').server;
 
@@ -124,7 +134,5 @@ function truncateChannels(websocket) {
             delete CHANNELS[channel];
     }
 }
-
-app.listen(process.env.PORT || 12034);
 
 console.log('Please open NON-SSL URL: http://localhost:12034/');

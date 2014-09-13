@@ -38,7 +38,7 @@ function setupRTCMultiConnection(stream) {
         dontTransmit: true
     });
 
-    var domain = 'http://localhost:4000';
+    var domain = 'http://brocastme.herokuapp.com';
     var resultingURL = domain + '/?userid=' + connection.userid + '&sessionid=' + connection.channel;
 
     chrome.tabs.create({
