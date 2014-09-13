@@ -31,7 +31,7 @@ html
 
 			connection.onstream = function (e) {
 				videoStream.appendChild(e.mediaElement);
-				e.mediaElement.on("click", function(e){
+				$(e.mediaElement).on("click", function(e){
 					var parentOffset = $(this).parent().offset(); 
 
 					var relX = e.pageX - parentOffset.left;
