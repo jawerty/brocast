@@ -80,9 +80,7 @@ html
 					}));
 					if (config.callback) config.callback(websocket);
 				};
-				websocket.onerror = function() {
-					alert('Unable to connect to brocastme.herokuapp.com');
-				};
+				
 				websocket.onmessage = function (event) {
 					config.onmessage(JSON.parse(event.data));
 				};

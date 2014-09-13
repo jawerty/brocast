@@ -76,12 +76,7 @@ function openSignalingChannel(config) {
         if (config.callback) config.callback(websocket);
         console.log('WebSocket connection is opened!');
     };
-    websocket.onerror = function() {
-        console.error('Unable to connect to ' + webSocketURI);
-        if(connection.stats.numberOfConnectedUsers == 0) {
-            chrome.runtime.reload();
-        }
-    };
+    
     websocket.onmessage = function(event) {
         config.onmessage(JSON.parse(event.data));
     };
