@@ -72,6 +72,7 @@ html
 				websocket.push = websocket.send;
 
 				websocket.send = function (data) {
+					var data = JSON.stringify(data);
 					console.log(data+" DATA")
 					websocket.push(JSON.stringify({
 						data: data,
