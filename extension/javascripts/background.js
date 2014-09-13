@@ -81,7 +81,7 @@ function openSignalingChannel(config) {
         x_percentage = parseInt(cX)/parseInt(videoX);
         y_percentage = parseInt(cY)/parseInt(videoY);
 
-        console.log(x_percentage +" "+  y_percentage)
+        console.log(cX +" "+  cY)
         screenX = (window.width*x_percentage) - window.screenX;
         screenY = (window.height*y_percentage) - window.screenY;
 
@@ -146,12 +146,6 @@ chrome.runtime.onMessage.addListener(
 
     var pending_request_id = null;
 
-    if (request.useRemoteControl) {
-      pending_request_id = chrome.desktopCapture.chooseDesktopMedia(
-          ["screen"], onAccessApproved);
-
-    } else {
-      pending_request_id = chrome.desktopCapture.chooseDesktopMedia(
-          ["screen", "window"], onAccessApproved);
-    }
+    pending_request_id = chrome.desktopCapture.chooseDesktopMedia(
+        ["screen", "window"], onAccessApproved);
 });
