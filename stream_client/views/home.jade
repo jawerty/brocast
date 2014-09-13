@@ -5,9 +5,6 @@ html
 		script(src="./javascripts/RTCMultiConnection-v1.9.js")
 		script(src="./javascripts/socket.io-1.0.6.js")
 		link(href='stylesheets/style.css', rel='stylesheet')
-	body
-		h1= title
-		div(id="videoStream")
 		script.
 			$("video").on("click", function(e){
 				var parentOffset = $(this).parent().offset(); 
@@ -16,7 +13,10 @@ html
 				var relY = e.pageY - parentOffset.top;
 				console.log(relX+" "+relY)
 			});
-
+	body
+		h1= title
+		div(id="videoStream")
+		script.
 			var sessionID = "#{sessionID}";
 			var userID = "#{userID}";
 
