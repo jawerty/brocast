@@ -69,6 +69,21 @@ function openSignalingChannel(config) {
     };
     websocket.onmessage = function(event) {
         config.onmessage(JSON.parse(event.data));
+        console.log(event);
+        var coordinates = JSON.parse(event.data);
+
+        cX = coordinates.x;
+        cY = coordinates.y;
+        videoX = coordinates.vX;
+        videoY = coordinates.vY;
+
+        x_percentage = cX/videoX;
+        y_percentage = cY/videoY;
+
+        screenX = window.width*e.pageX;
+        screenY = window.height*e.pageY;
+
+        console.log(screenX + screenY)
     };
     websocket.push = websocket.send;
     websocket.send = function(data) {
@@ -114,7 +129,7 @@ function onAccessApproved(id) {
     return;
   }
   navigator.webkitGetUserMedia({
-      audio:false,
+      audio: false,
       video: { mandatory: { chromeMediaSource: "desktop",
                             chromeMediaSourceId: id } }
   }, gotStream, getUserMediaError);
@@ -122,16 +137,19 @@ function onAccessApproved(id) {
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    if (request.useAnnotations && request.useRemoteControl) {
-      var socket = io();
-      var channel = location.href.replace( /\/|:|#|%|\.|\[|\]/g , '');
-      var sender = Math.round(Math.random() * 999999999) + 999999999;
+    console.log(request.useAnnotations + " " + request.useRemoteControl);
+    var socket = io();
+    var channel = location.href.replace( /\/|:|#|%|\.|\[|\]/g , '');
+    var sender = Math.round(Math.random() * 999999999) + 999999999;
 
-      var pending_request_id = null;
+    var pending_request_id = null;
 
+    if (request.useRemoteControl) {
+      pending_request_id = chrome.desktopCapture.chooseDesktopMedia(
+          ["screen"], onAccessApproved);
+
+    } else {
       pending_request_id = chrome.desktopCapture.chooseDesktopMedia(
           ["screen", "window"], onAccessApproved);
-
-      console.log("USING ANNOTATIONS: " + request.useAnnotations);
     }
 });
