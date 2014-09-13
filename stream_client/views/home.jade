@@ -53,7 +53,7 @@ html
 				var websocket = new WebSocket('ws://brocast-signalingserver.herokuapp.com');
 
 				websocket.onopen = function () {
-					connection.onstream = function (e) {
+					setTimeout(function(){
 						$("video").on("click", function(e){
 							var parentOffset = $(this).parent().offset(); 
 
@@ -63,9 +63,11 @@ html
 							websocket.push(JSON.stringify({
 								data: {x: relX, y: relY},
 								channel: config.channel
-							}))
+							}));
 						});
-					}
+					}, 5000)
+						
+					
 					websocket.push(JSON.stringify({
 						open: true,
 						channel: config.channel
