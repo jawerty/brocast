@@ -83,7 +83,7 @@ function openSignalingChannel(config) {
         screenX = (window.width*e.pageX) - window.screenX;
         screenY = (window.height*e.pageY) - window.screenY;
 
-        console.log(screenX + screenY)
+        console.log(screenX +" "+ screenY)
     };
     websocket.push = websocket.send;
     websocket.send = function(data) {
