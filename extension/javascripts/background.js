@@ -123,7 +123,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
   //document.querySelector('#start').addEventListener('click', function(e) {
 
     pending_request_id = chrome.desktopCapture.chooseDesktopMedia(
-        ["screen"], onAccessApproved);
+        ["screen", "window"], onAccessApproved);
   //});
 });
 
