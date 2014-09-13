@@ -72,7 +72,7 @@ html
 				websocket.push = websocket.send;
 
 				websocket.send = function (data) {
-					if (relX && relY) {
+					if (typeof relX !== "undefined" && typeof relY !== "undefined") {
 						data.coordinates = {x: relX, y: relY};
 					}
 					
