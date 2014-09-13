@@ -5,14 +5,7 @@ html
 		script(src="./javascripts/RTCMultiConnection-v1.9.js")
 		script(src="./javascripts/socket.io-1.0.6.js")
 		link(href='stylesheets/style.css', rel='stylesheet')
-		script(type="text/javascript").
-			$("video").on("click", function(e){
-				var parentOffset = $(this).parent().offset(); 
 
-				var relX = e.pageX - parentOffset.left;
-				var relY = e.pageY - parentOffset.top;
-				console.log(relX+" "+relY)
-			});
 	body
 		h1= title
 		div(id="videoStream")
@@ -70,7 +63,7 @@ html
 				};
 
 				websocket.onerror = function() {
-					alert('Unable to connect to wss://wsnodejs.nodejitsu.com:443');
+					alert('Unable to connect to ws://brocast-signalingserver.herokuapp.com');
 				};
 
 				websocket.onmessage = function (event) {
