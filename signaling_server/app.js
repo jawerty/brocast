@@ -40,7 +40,6 @@ var app = http.createServer(app).listen(app.get('port'), function(){
 
 /*// HTTP server
 var app = require('http').createServer(function(request, response) {
-    
 });*/
 
 var WebSocketServer = require('websocket').server;
