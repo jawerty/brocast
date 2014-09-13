@@ -48,7 +48,7 @@ function openSignalingChannel(config) {
     socket = io.connect(webSocketURI);
     
     socket.on("connect", function(){
-      socket.emit({
+      socket.emit("message", {
             open: true,
             channel: config.channel
         });
@@ -62,7 +62,7 @@ function openSignalingChannel(config) {
 
     socket.push = socket.send;
     socket.send = function(data) {
-        socket.emit({
+        socket.emit("message", {
             data: data,
             channel: config.channel
         });
