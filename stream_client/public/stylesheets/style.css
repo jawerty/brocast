@@ -7,6 +7,11 @@ a {
   color: #00B7FF;
 }
 
+#title{
+	width: 30%;
+	padding-top: 30%;
+}
+
 #videoStream{
 	float: left;
 	padding-left: 2%;

@@ -1,15 +1,20 @@
 html
 	head
-
+		title= title
+		script(src="https://code.jquery.com/jquery-2.1.1.min.js")
+		link(href='stylesheets/style.css', rel='stylesheet')
+			link(href='stylesheets/bootstrap.css', rel='stylesheet')
 
 	body
 		a(href="https://github.com/jawerty/brocast")
 			img(style="position: absolute; top: 0; left: 0; border: 0;" src="//s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub")
-		h1 brocast
-		h2 Stream your screen like a bro
-		br
-		br
-		h2 Built during PennApps 2014f by 
-			a(href="https://github.com/jawerty")@jawerty
-			a(href="https://github.com/bogidon")@bogidon
-			a(href="https://github.com/elklein96")@elklein96
+		
+		div(id="title")
+			h1 brocast
+			h2 Stream your screen like a bro
+			br
+			br
+			h2 Built during PennApps 2014f by 
+				a(href="https://github.com/jawerty")@jawerty
+				a(href="https://github.com/bogidon")@bogidon
+				a(href="https://github.com/elklein96")@elklein96
