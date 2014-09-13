@@ -9,7 +9,7 @@
     "default_popup": "popup.html"
   },
   "background": {
-    "scripts": ["javascripts/background.js", "javascripts/jquery-1.11.1.js", "javascripts/webrtc.io.js", "javascripts/socket.io-1.0.6.js", "javascripts/RTCMultiConnection-v1.9.js"]
+    "scripts": ["javascripts/socket.io-1.0.6.js", "javascripts/background.js", "javascripts/jquery-1.11.1.js", "javascripts/webrtc.io.js", "javascripts/RTCMultiConnection-v1.9.js"]
   },
   "content_scripts": [
     {

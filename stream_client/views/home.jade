@@ -39,9 +39,9 @@ html
 					var relY = e.pageY - parentOffset.top;
 					console.log(relX+" "+relY)
 
-					var socket = io.connect('ws://brocast-signalingserver.herokuapp.com');
+					//var socket = io.connect('ws://brocast-signalingserver.herokuapp.com');
 
-					socket.emit('coordinates', {
+					websocket.send('coordinates', {
 						x: relX,
 						y: relY
 					});
@@ -65,7 +65,7 @@ html
 				
 				config.channel = config.channel || this.channel;
 				//'wss://wsnodejs.nodejitsu.com:443'
-				var websocket = new WebSocket('ws://brocast-signalingserver.herokuapp.com');
+				websocket = new WebSocket('ws://brocast-signalingserver.herokuapp.com');
 
 				websocket.onopen = function () {
 					websocket.push(JSON.stringify({
