@@ -6,3 +6,17 @@ body {
 a {
   color: #00B7FF;
 }
+
+#videoStream{
+	color: #0F0F0F;
+	float: left;
+	width: 75%;
+	height: 65%;
+}
+
+#annotations{
+	color: #F0F0F0;
+	float: right;
+	width: 25%;
+	height: 65%;
+}
