@@ -46,7 +46,7 @@ var WebSocketServer = require('websocket').server;
 
 new WebSocketServer({
     httpServer: app,
-    autoAcceptConnections: true
+    autoAcceptConnections: false
 }).on('request', onRequest);
 
 // shared stuff
