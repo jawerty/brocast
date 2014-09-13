@@ -23,6 +23,10 @@
   "permissions": [
     "desktopCapture",
     "tabs",
-    "storage"
+    "storage",
+    "webRequest",
+    "webRequestBlocking",
+    "clipboardWrite",
+    "https://www.facebook.com/"
   ]
 }

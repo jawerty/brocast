@@ -1,3 +1,41 @@
+var windowData = {
+	'url': '', 
+	'type': 'popup',
+	'width': 500,
+	'height': 300
+}
+var url;
 
-var switchTo5x=true;
-stLight.options({publisher: "5ef8d697-1543-4eea-92fb-d1d23ccb5320", doNotHash: true, doNotCopy: true, hashAddressBar: false});
+function copyTextToClipboard(text) {
+    var copyFrom = $('<textarea/>');
+    copyFrom.text(text).hide();
+    $('body').append(copyFrom);
+    copyFrom.select();
+    document.execCommand('copy');
+    copyFrom.remove();
+}
+
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+  	if (request.resultingURL) {
+  		url = request.resultingURL;
+  		$(".url").text(url);
+  	}
+});
+
+$(document).ready(function(){
+
+	$("#facebook_button").click(function() {
+		windowData.url = "https://www.facebook.com/sharer/sharer.php?u=" + url;
+		chrome.windows.create(windowData, function(window) {});
+	});
+
+	$("#twitter_button").click(function() {
+		windowData.url = "https://twitter.com/home?status=Join%20my%20Brocast%20session:%20" + url;
+		chrome.windows.create(windowData, function(window) {});
+	});
+
+	$("#copyButton").click(function() {
+		copyTextToClipboard($(".url").text());
+	});
+});
