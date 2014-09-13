@@ -5,7 +5,7 @@ html
 		script(src="./javascripts/RTCMultiConnection-v1.9.js")
 		script(src="./javascripts/socket.io-1.0.6.js")
 		link(href='stylesheets/style.css', rel='stylesheet')
-		script.
+		script(type="text/javascript").
 			$("video").on("click", function(e){
 				var parentOffset = $(this).parent().offset(); 
 
@@ -31,7 +31,13 @@ html
 
 			connection.onstream = function (e) {
 				videoStream.appendChild(e.mediaElement);
-				
+				e.mediaElement.on("click", function(e){
+					var parentOffset = $(this).parent().offset(); 
+
+					var relX = e.pageX - parentOffset.left;
+					var relY = e.pageY - parentOffset.top;
+					console.log(relX+" "+relY)
+				});
 			};
 
 			var seshInfo = {
