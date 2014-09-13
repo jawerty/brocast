@@ -1,6 +1,7 @@
 html
 	head
 		title= title
+		script(src="https://code.jquery.com/jquery-2.1.1.min.js")
 		script(src="./javascripts/RTCMultiConnection-v1.9.js")
 		script(src="./javascripts/socket.io-1.0.6.js")
 		link(href='stylesheets/style.css', rel='stylesheet')
@@ -8,7 +9,7 @@ html
 		h1= title
 		div(id="videoStream")
 		script.
-			document.getElementsByTagName('video')[0].addEventListener("click", function(e){
+			$("video").on("click", function(e){
 				var parentOffset = $(this).parent().offset(); 
 
 				var relX = e.pageX - parentOffset.left;
