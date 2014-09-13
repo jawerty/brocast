@@ -62,7 +62,7 @@ html
 				config.channel = config.channel || this.channel;				
 
 				websocket.onopen = function () {
-					websocket.push(JSON.stringify({
+					websocket.send(JSON.stringify({
 						open: true,
 						channel: config.channel
 					}));
@@ -80,12 +80,12 @@ html
 
 				//websocket.push = websocket.send;
 
-				websocket.send = function (data) {
+				/*websocket.send = function (data) {
 					websocket.push(JSON.stringify({
 						data: data,
 						channel: config.channel
 					}));
-				};
+				};*/
 			}
 
 		div(id="annotations")
