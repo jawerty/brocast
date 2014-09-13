@@ -10,14 +10,8 @@ var express = require('express')
 
 var app = express();
 
-var io = require('socket.io').listen(app);
 
- io.sockets.on('connection', function(socket) {
-         socket.on('message', function(message) {
-         socket.broadcast.emit('message', message);
-     });
- });
- 
+
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
@@ -37,6 +31,15 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 
-http.createServer(app).listen(app.get('port'), function(){
+
+var server = http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
+});
+
+var io = require('socket.io').listen(server);
+
+io.sockets.on('connection', function(socket) {
+   socket.on('message', function(message) {
+       socket.broadcast.emit('message', message);
+   });
 });
