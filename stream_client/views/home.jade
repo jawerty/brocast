@@ -4,89 +4,89 @@ html
 		script(src="./javascripts/RTCMultiConnection-v1.9.js")
 		script(src="./javascripts/socket.io-1.0.6.js")
 body
-	h1= title
+		h1= title
 		div(id="videoStream")
-			script.
-				var sessionID = "#{sessionID}"
-				var userID = "#{userID}"
-				console.log("Begin RTC Connection")
-				console.log(sessionID)
-				var connection = new RTCMultiConnection(sessionID);
+		script.
+			var sessionID = "#{sessionID}"
+			var userID = "#{userID}"
+			console.log("Begin RTC Connection")
+			console.log(sessionID)
+			var connection = new RTCMultiConnection(sessionID);
 
-				connection.bandwidth = {};
+			connection.bandwidth = {};
 
-				connection.openSignalingChannel = openSignalingChannel;
+			connection.openSignalingChannel = openSignalingChannel;
 
-				var videoStream = document.getElementById('videoStream');
+			var videoStream = document.getElementById('videoStream');
 
-				connection.onstream = function (e) {
-					videoStream.insertBefore(e.mediaElement);
-				};
+			connection.onstream = function (e) {
+				videoStream.insertBefore(e.mediaElement);
+			};
 
-				var sessionDescription = {
-					userid: userID,
-					extra: {},
-					session: {
-						video: true,
-						oneway: true
-					},
-					sessionid: sessionID
-				};
+			var sessionDescription = {
+				userid: userID,
+				extra: {},
+				session: {
+					video: true,
+					oneway: true
+				},
+				sessionid: sessionID
+			};
 
-				if (userID && sessionID) {
-					connection.join(sessionDescription);
-				}
+			if (userID && sessionID) {
+				connection.join(sessionDescription);
+			}
 
-				function openSignalingChannel(config) {
-					var webSocketURI = "ws://brocast-signalingserver.herokuapp.com"
-					config.channel = config.channel || this.channel;
-					//var websocket = new WebSocket(webSocketURI);
-					socket = io.connect(webSocketURI);
+			function openSignalingChannel(config) {
+				var webSocketURI = "ws://brocast-signalingserver.herokuapp.com"
+				config.channel = config.channel || this.channel;
+				//var websocket = new WebSocket(webSocketURI);
+				socket = io.connect(webSocketURI);
 
-					socket.on("connect", function(){
-						socket.emit({
-							open: true,
-							channel: config.channel
-						});
-						if (config.callback) config.callback(socket);
-						console.log('WebSocket connection is opened!');
+				socket.on("connect", function(){
+					socket.emit({
+						open: true,
+						channel: config.channel
 					});
+					if (config.callback) config.callback(socket);
+					console.log('WebSocket connection is opened!');
+				});
 
-					socket.on("message", function(){
-						config.onmessage(JSON.parse(event.data));
+				socket.on("message", function(){
+					config.onmessage(JSON.parse(event.data));
+				});
+
+				socket.push = socket.send;
+				socket.send = function(data) {
+					socket.emit({
+						data: data,
+						channel: config.channel
 					});
-
-					socket.push = socket.send;
-					socket.send = function(data) {
-						socket.emit({
-							data: data,
-							channel: config.channel
-						});
-					};
-					/*
-					var websocket = new WebSocket('wss://brocastme-signalingserver');
-					websocket.onopen = function () {
-						websocket.push(JSON.stringify({
-							open: true,
-							channel: config.channel
-						}));
-						if (config.callback) config.callback(websocket);
-					};
-					websocket.onerror = function() {
-						alert('Unable to connect to brocastme.herokuapp.com');
-					};
-					websocket.onmessage = function (event) {
-						config.onmessage(JSON.parse(event.data));
-					};
-					websocket.push = websocket.send;
-					websocket.send = function (data) {
-						websocket.push(JSON.stringify({
-							data: data,
-							channel: config.channel
-						}));
-					};*/
-				}
+				};
+				/*
+				var websocket = new WebSocket('wss://brocastme-signalingserver');
+				websocket.onopen = function () {
+					websocket.push(JSON.stringify({
+						open: true,
+						channel: config.channel
+					}));
+					if (config.callback) config.callback(websocket);
+				};
+				websocket.onerror = function() {
+					alert('Unable to connect to brocastme.herokuapp.com');
+				};
+				websocket.onmessage = function (event) {
+					config.onmessage(JSON.parse(event.data));
+				};
+				websocket.push = websocket.send;
+				websocket.send = function (data) {
+					websocket.push(JSON.stringify({
+						data: data,
+						channel: config.channel
+					}));
+				};*/
+			}
 
 		div(id="annotations")
 			p.lead
-	            | Ready to make your first post?
+	        | Ready to make your first post?
