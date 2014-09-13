@@ -3,14 +3,14 @@ html
 		title= title
 		script(src="./javascripts/RTCMultiConnection-v1.9.js")
 		script(src="./javascripts/socket.io-1.0.6.js")
-body
+	body
 		h1= title
 		div(id="videoStream")
 		script.
 			var sessionID = "#{sessionID}";
 			var userID = "#{userID}";
 			console.log("Begin RTC Connection")
-			console.log(sessionID)
+			console.log(sessionID + " " + userID)
 			var connection = new RTCMultiConnection(sessionID);
 
 			connection.bandwidth = {};
