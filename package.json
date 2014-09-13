@@ -1,6 +1,6 @@
 {
   "name": "brocast",
-  "version": "1.0",
+  "version": "0.1.0",
   "description": "Live stream your desktop/browser like a bro",
   "main": "index.js",
   "scripts": {
