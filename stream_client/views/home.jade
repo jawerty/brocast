@@ -40,7 +40,6 @@ html
 					var relY = e.pageY - parentOffset.top;
 					console.log(relX+" "+relY)
 
-					websocket.send("message")
 				});
 			};
 
@@ -62,7 +61,7 @@ html
 				config.channel = config.channel || this.channel;				
 
 				websocket.onopen = function () {
-					websocket.send(JSON.stringify({
+					websocket.push(JSON.stringify({
 						open: true,
 						channel: config.channel
 					}));
@@ -78,14 +77,14 @@ html
 					config.onmessage(JSON.parse(event.data));
 				};
 
-				//websocket.push = websocket.send;
+				websocket.push = websocket.send;
 
-				/*websocket.send = function (data) {
+				websocket.send = function (data) {
 					websocket.push(JSON.stringify({
 						data: data,
 						channel: config.channel
 					}));
-				};*/
+				};
 			}
 
 		div(id="annotations")
