@@ -28,8 +28,8 @@ html
 				$(e.mediaElement).on("click", function(e){
 					var parentOffset = $(this).parent().offset(); 
 
-					var relX = e.pageX - parentOffset.left;
-					var relY = e.pageY - parentOffset.top;
+					relX = e.pageX - parentOffset.left;
+					relY = e.pageY - parentOffset.top;
 					console.log(relX+" "+relY);
 				});
 			};
@@ -72,8 +72,11 @@ html
 				websocket.push = websocket.send;
 
 				websocket.send = function (data) {
-					var data = JSON.stringify(data);
-					console.log(data+" DATA")
+					if (relX & relY) {
+						data.coordinates = {x: relX, y: relY};
+					}
+					
+					console.log(JSON.stringify(data))
 					websocket.push(JSON.stringify({
 						data: data,
 						channel: config.channel
