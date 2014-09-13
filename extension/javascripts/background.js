@@ -38,7 +38,6 @@ function setupRTCMultiConnection(stream) {
     chrome.tabs.create({
         url: resultingURL
     });
-    console.log("RESULTING URL FROM BACKGROUND: " + resultingURL);
     alert("halt");
     chrome.runtime.sendMessage({resultingURL: resultingURL});
 }
@@ -51,20 +50,21 @@ function openSignalingChannel(config) {
     socket = io.connect(webSocketURI);
     
     socket.on("connect", function(){
-      socket.send({
+      socket.emit({
             open: true,
             channel: config.channel
         });
-      if (config.callback) config.callback(websocket);
+      if (config.callback) config.callback(socket);
       console.log('WebSocket connection is opened!');
-    })
+    });
+
     socket.on("message", function(){
       config.onmessage(JSON.parse(event.data));
     });
 
     socket.push = socket.send;
     socket.send = function(data) {
-        socket.send({
+        socket.emit({
             data: data,
             channel: config.channel
         });
@@ -140,7 +140,6 @@ chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if (request.useAnnotations && request.useRemoteControl) {
       var socket = io();
-      SIGNALING_SERVER = "ws://localhost:3000";
       var channel = location.href.replace( /\/|:|#|%|\.|\[|\]/g , '');
       var sender = Math.round(Math.random() * 999999999) + 999999999;
 
