@@ -8,9 +8,10 @@ a {
 }
 
 #title{
-	width: 30%;
+	width: 40%;
 	height: 30%;
 	padding-top: 10%;
+	margin-left: 25%;
 }
 
 #videoStream{
