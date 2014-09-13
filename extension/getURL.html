@@ -2,27 +2,93 @@
 <html>
 <head>
 	<script src="javascripts/jquery-1.11.1.js"></script>
-	<script src="javascripts/sharethis.js"></script>
 	<script src="javascripts/getURL.js"></script>
+
+	
 </head>
 
 <style type="text/css">
-	
+	body {
+		text-align: center;
+		padding: 10px;
+	}
+
+	.socialContainer {
+		margin-bottom: 10px;
+		display: inline-block;
+		border-bottom: 1px solid #ddd;
+	}
+
+	.socialContainer * {
+		width: 50px;
+		height: 50px;
+		cursor: pointer;
+		background-repeat: no-repeat;
+		background-size: contain;
+		background-position: center; 
+		display: inline-block;
+	}
+
+	#facebook_button {
+		background-image: url(images/fb_logo.png);
+	}
+
+	#twitter_button {
+		background-image: url(images/tw_logo.png);
+		background-color: #55ACEE;
+	}
+
+	.urlContainer {
+		display: inline-block;
+		border: 1px solid #999999;
+		border-radius: 6px;
+		padding: 2px 10px;
+	}
+
+	.url {
+		font-family: 'Helvetica Neue', Verdana, serif;
+		font-size: 8pt;
+		color: #aaa;
+	}
+
+	.button {
+	    border-bottom-left-radius: 6px;
+	    border-bottom-right-radius: 6px;
+	    border-right-width: 1px;
+	    border-top-left-radius: 6px;
+	    border-top-right-radius: 6px;
+	    border-width: 0px;
+	    background-color: #ADD0D6;
+	    font-family: PTSansNarrow, 'Lucida Grande', Verdana, serif;
+	    color: #fff;
+	    padding: 4px 8px 4px 8px;
+	    font-weight: normal;
+	    cursor: pointer;
+	    -webkit-user-select: none;
+		user-select: none;
+	}
+
+	#copyButton {
+		background-color: #aaa;
+	}
+
+	#copyButton:hover {
+		background-color: #666;
+	}
 </style>
 
 <body>
-	<div id="fb-root"></div>
-
 	<div class="socialContainer">
-		<span class='st_facebook_large' displayText='Facebook'></span>
-		<span class='st_twitter_large' displayText='Tweet'></span>
-		<span class='st_linkedin_large' displayText='LinkedIn'></span>
-		<span class='st_email_large' displayText='Email'></span>
+		<div id="facebook_button"></div>
+		<div id="twitter_button"></div>
+
 	</div>
-	
+
 	<div class="copyContainer">
-		<p class="url"></p>
-		<button id="copyButton">Copy</button>
+		<div class="urlContainer">
+			<span class="url"></span>
+		</div>
+		<button id="copyButton" class="button">Copy</button>
 	</div>
 
 </body>
