@@ -4,16 +4,9 @@ html
 		script(src="./javascripts/webrtc.io.js")
 body
 		h1= title
-		video(id="remote", autoplay="autoplay")
+		div(id="videoStream")
 		script.
-			rtc.connect('ws://localhost:7000/');
-
-			rtc.on('message', function(stream){
-				console.log(stream)
-				rtc.attachStream(stream, 'remote');
-			});
-
-			console.log("Begin Socket.io")
+			console.log("Begin RTC Connection")
 
 			var connection = new RTCMultiConnection(params.sessionid);
 
@@ -21,29 +14,29 @@ body
 
 			connection.openSignalingChannel = openSignalingChannel;
 
-			var participants = document.getElementById('participants');
-            
+			var videoStream = document.getElementById('videoStream');
+
 			connection.onstream = function (e) {
-				participants.insertBefore(e.mediaElement, participants.firstChild);
+				videoStream.insertBefore(e.mediaElement);
 			};
 
 			var sessionDescription = {
-				userid: params.userid,
+				userid: userID,
 				extra: {},
 				session: {
 					video: true,
 					oneway: true
 				},
-				sessionid: params.sessionid
+				sessionid: sessionID
 			};
 
-			if (params.userid && params.sessionid) {
+			if (userID && sessionID) {
 				connection.join(sessionDescription);
 			}
 
 			function openSignalingChannel(config) {
 				config.channel = config.channel || this.channel;
-				var websocket = new WebSocket('wss://wsnodejs.nodejitsu.com:443');
+				var websocket = new WebSocket('wss://brocastme.herokuapp.com');
 				websocket.onopen = function () {
 					websocket.push(JSON.stringify({
 						open: true,
@@ -52,7 +45,7 @@ body
 					if (config.callback) config.callback(websocket);
 				};
 				websocket.onerror = function() {
-					alert('Unable to connect to wss://www.webrtc-experiment.com:8563');
+					alert('Unable to connect to brocastme.herokuapp.com');
 				};
 				websocket.onmessage = function (event) {
 					config.onmessage(JSON.parse(event.data));
