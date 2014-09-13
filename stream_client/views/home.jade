@@ -7,7 +7,13 @@ html
 		link(href='stylesheets/style.css', rel='stylesheet')
 	body
 		h1= title
-		div(id="videoStream")
+		div(class="content")
+			div(id="videoStream")
+			div(id="annotations")
+		div(class="footer")
+			img(class="logo" src="")
+
+			
 		script.
 			var sessionID = "#{sessionID}";
 			var userID = "#{userID}";
@@ -105,6 +111,3 @@ html
 				};
 
 			}
-
-		div(id="annotations")
-			

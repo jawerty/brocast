@@ -1,0 +1,102 @@
+<html><head><title></title><script src="https://code.jquery.com/jquery-2.1.1.min.js"></script><script src="./javascripts/RTCMultiConnection-v1.9.js"></script><script src="./javascripts/socket.io-1.0.6.js"></script><link href="stylesheets/style.css" rel="stylesheet"/><script type="text/javascript">$("video").on("click", function(e){
+	var parentOffset = $(this).parent().offset(); 
+
+	var relX = e.pageX - parentOffset.left;
+	var relY = e.pageY - parentOffset.top;
+	console.log(relX+" "+relY)
+});</script></head><body><h1></h1><div id="videoStream"></div><div id="annotations"></div><script>var sessionID = "";
+var userID = "";
+
+console.log("Begin RTC Connection")
+console.log(sessionID + " " + userID)
+
+var connection = new RTCMultiConnection(sessionID);
+connection.bandwidth = {};
+connection.openSignalingChannel = openSignalingChannel;
+
+var videoStream = document.getElementById('videoStream');
+
+connection.onstream = function (e) {
+	videoStream.appendChild(e.mediaElement);
+
+	$(e.mediaElement).on("click", function(e){
+		var parentOffset = $(this).parent().offset(); 
+
+		var relX = e.pageX - parentOffset.left;
+		var relY = e.pageY - parentOffset.top;
+		console.log(relX+" "+relY)
+
+		waitForSocketConnection(websocket,	function(){
+			websocket.send({
+				x: relX,
+				y: relY
+			});
+		});
+		
+	});
+};
+
+var seshInfo = {
+	userid: userID,
+	sessionid: sessionID,
+	session: {
+		video: true,
+		oneway: true
+	}
+};
+
+if (userID && sessionID) {
+	connection.join(seshInfo);
+}
+
+function waitForSocketConnection(socket, callback){
+    setTimeout(
+        function () {
+            if (socket.readyState === 1) {
+                console.log("Connection is made")
+                if(callback != null){
+                    callback();
+                }
+                return;
+
+            } else {
+                console.log("wait for connection...")
+                waitForSocketConnection(socket, callback);
+            }
+
+        }, 5000); 
+}
+
+function openSignalingChannel(config) {
+	
+	config.channel = config.channel || this.channel;
+	//'wss://wsnodejs.nodejitsu.com:443'
+	websocket = new WebSocket('ws://brocast-signalingserver.herokuapp.com');
+
+	websocket.onopen = function () {
+		websocket.push(JSON.stringify({
+			open: true,
+			channel: config.channel
+		}));
+
+		if (config.callback) config.callback(websocket);
+	};
+
+	websocket.onerror = function() {
+		alert('Unable to connect to ws://brocast-signalingserver.herokuapp.com');
+	};
+
+	websocket.onmessage = function (event) {
+		config.onmessage(JSON.parse(event.data));
+	};
+
+	websocket.push = websocket.send;
+
+	websocket.send = function (data) {
+		websocket.push(JSON.stringify({
+			data: data,
+			channel: config.channel
+		}));
+	};
+
+}</script></body></html>

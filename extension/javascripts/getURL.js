@@ -8,7 +8,7 @@ var url;
 
 function copyTextToClipboard(text) {
     var copyFrom = $('<textarea/>');
-    copyFrom.text(text).hide();
+    copyFrom.text(text);
     $('body').append(copyFrom);
     copyFrom.select();
     document.execCommand('copy');
@@ -36,6 +36,6 @@ $(document).ready(function(){
 	});
 
 	$("#copyButton").click(function() {
-		copyTextToClipboard($(".url").text());
+		copyTextToClipboard(url);
 	});
 });
