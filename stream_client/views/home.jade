@@ -56,9 +56,8 @@ html
 					setTimeout(function(){
 						$("video").on("click", function(e){
 							var parentOffset = $(this).parent().offset(); 
-
-							var width = $(this).parent().width();
-							var height = $(this).parent().height();
+							var width = $(this).width();
+							var height = $(this).height();
 
 							var relX = e.pageX - parentOffset.left;
 							var relY = e.pageY - parentOffset.top;

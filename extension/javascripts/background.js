@@ -77,15 +77,14 @@ function openSignalingChannel(config) {
         videoX = coordinates.vX;
         videoY = coordinates.vY;
 
+        x_percentage = cX/videoX;
+        y_percentage = cY/videoY;
 
-        x_percentage = parseInt(cX)/parseInt(videoX);
-        y_percentage = parseInt(cY)/parseInt(videoY);
-
-        console.log(cX +" "+  cY)
-        screenX = (window.width*x_percentage) - window.screenX;
-        screenY = (window.height*y_percentage) - window.screenY;
-
-        console.log(screenX +" "+ screenY)
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+            chrome.tabs.sendMessage(tabs[0].id, {data: {x: x_percentage, y: y_percentage}}, function(response) {
+              console.log(response)
+            });  
+        });
     };
     websocket.push = websocket.send;
     websocket.send = function(data) {
@@ -139,13 +138,15 @@ function onAccessApproved(id) {
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    console.log(request.useAnnotations + " " + request.useRemoteControl);
-    var socket = io();
-    var channel = location.href.replace( /\/|:|#|%|\.|\[|\]/g , '');
-    var sender = Math.round(Math.random() * 999999999) + 999999999;
+    if (request.useAnnotations && request.useRemoteControl) {
+      var socket = io();
+      var channel = location.href.replace( /\/|:|#|%|\.|\[|\]/g , '');
+      var sender = Math.round(Math.random() * 999999999) + 999999999;
 
-    var pending_request_id = null;
+      var pending_request_id = null;
 
-    pending_request_id = chrome.desktopCapture.chooseDesktopMedia(
-        ["screen", "window"], onAccessApproved);
+      pending_request_id = chrome.desktopCapture.chooseDesktopMedia(
+          ["screen", "window"], onAccessApproved);
+    }
+    
 });
