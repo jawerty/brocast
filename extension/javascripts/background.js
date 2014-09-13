@@ -41,11 +41,10 @@ function setupRTCMultiConnection(stream) {
     chrome.runtime.sendMessage({resultingURL: resultingURL});
 }
 
-var webSocketURI = 'ws://brocast-signalingserver.herokuapp.com';
+var webSocketURI = 'wss://www.webrtc-experiment.com:8563';
 
 function openSignalingChannel(config) {
-    config.channel = config.channel || this.channel;
-    //var websocket = new WebSocket(webSocketURI);
+    /*config.channel = config.channel || this.channel;
     socket = io.connect(webSocketURI);
     
     socket.on("connect", function(){
@@ -67,9 +66,9 @@ function openSignalingChannel(config) {
             data: data,
             channel: config.channel
         });
-    };
-    
-    /*websocket.onopen = function() {
+    };*/
+    var websocket = new WebSocket(webSocketURI);
+    websocket.onopen = function() {
         websocket.push(JSON.stringify({
             open: true,
             channel: config.channel
@@ -92,7 +91,7 @@ function openSignalingChannel(config) {
             data: data,
             channel: config.channel
         }));
-    };*/
+    };
 }
 
 function gotStream(stream) {
