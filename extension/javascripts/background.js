@@ -2,7 +2,6 @@ var connection;
 
 function setupRTCMultiConnection(stream) {
     console.log("setupRTC called!");
-    alert("SetupRTC called!");
     connection = new RTCMultiConnection();
     
     connection.channel = connection.token();
@@ -38,7 +37,6 @@ function setupRTCMultiConnection(stream) {
     chrome.tabs.create({
         url: resultingURL
     });
-    alert("halt");
     chrome.runtime.sendMessage({resultingURL: resultingURL});
 }
 
