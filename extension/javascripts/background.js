@@ -1,7 +1,13 @@
+function error() {
+  console.log('Unable to connect to ' + webSocketURI);
+  if(connection.stats.numberOfConnectedUsers == 0) {
+      chrome.runtime.reload();
+  }
+}  
+        
 var connection;
 
 function setupRTCMultiConnection(stream) {
-    console.log("setupRTC called!");
     connection = new RTCMultiConnection();
     
     connection.channel = connection.token();
@@ -34,40 +40,18 @@ function setupRTCMultiConnection(stream) {
 
     var domain = 'http://brocastme.herokuapp.com';
     var resultingURL = domain + '/?userid=' + connection.userid + '&sessionid=' + connection.channel;
+
     chrome.tabs.create({
         url: resultingURL
     });
-    alert("this")
+
     chrome.runtime.sendMessage({resultingURL: resultingURL});
 }
 
-var webSocketURI = 'wss://wsnodejs.nodejitsu.com:443';
+//'wss://wsnodejs.nodejitsu.com:443'
+var webSocketURI = 'ws://brocast-signalserver.herokuapp.com';
 
 function openSignalingChannel(config) {
-    /*config.channel = config.channel || this.channel;
-    socket = io.connect(webSocketURI);
-    
-    socket.on("connect", function(){
-      socket.send("message", {
-            open: true,
-            channel: config.channel
-        });
-      if (config.callback) config.callback(socket);
-      console.log('WebSocket connection is opened!');
-    });
-
-    socket.on("message", function(event){
-      config.onmessage(JSON.parse(event.data));
-    });
-
-    socket.push = socket.send;
-    socket.send = function(data) {
-        socket.push("message", {
-            data: data,
-            channel: config.channel
-        });
-    };*/
-    
     config.channel = config.channel || this.channel;
     var websocket = new WebSocket(webSocketURI);
     websocket.onopen = function() {
@@ -79,10 +63,7 @@ function openSignalingChannel(config) {
         console.log('WebSocket connection is opened!');
     };
     websocket.onerror = function() {
-        console.error('Unable to connect to ' + webSocketURI);
-        if(connection.stats.numberOfConnectedUsers == 0) {
-            chrome.runtime.reload();
-        }
+        
     };
     websocket.onmessage = function(event) {
         config.onmessage(JSON.parse(event.data));

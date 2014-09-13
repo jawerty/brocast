@@ -10,85 +10,60 @@ html
 		script.
 			var sessionID = "#{sessionID}";
 			var userID = "#{userID}";
+
 			console.log("Begin RTC Connection")
 			console.log(sessionID + " " + userID)
+
 			var connection = new RTCMultiConnection(sessionID);
-
 			connection.bandwidth = {};
-
 			connection.openSignalingChannel = openSignalingChannel;
 
 			var videoStream = document.getElementById('videoStream');
-
-			connection.onstatechange = function (state) {
-				var div = document.createElement('div');
-				div.innerHTML = '<p>' + state + '</p>';
-				videoStream.appendChild(div);
-			};
 
 			connection.onstream = function (e) {
 				videoStream.insertBefore(e.mediaElement);
 				console.log("streaming")
 			};
 
-			var sessionDescription = {
+			var seshInfo = {
 				userid: userID,
-				extra: {},
+				sessionid: sessionID,
 				session: {
 					video: true,
 					oneway: true
-				},
-				sessionid: sessionID
+				}
 			};
 
 			if (userID && sessionID) {
-				connection.join(sessionDescription);
+				connection.join(seshInfo);
 			}
 
 			function openSignalingChannel(config) {
-				//var webSocketURI = "wss://www.webrtc-experiment.com:8563"
 				config.channel = config.channel || this.channel;
-				/*//var websocket = new WebSocket(webSocketURI);
-				socket = io.connect(webSocketURI);
-
-				socket.on("connect", function(){
-					socket.send("message", {
-						open: true,
-						channel: config.channel
-					});
-					if (config.callback) config.callback(socket);
-					console.log('WebSocket connection is opened!');
-				});
-
-				socket.on("message", function(event){
-					config.onmessage(JSON.parse(event.data));
-				});
-
-				socket.push = socket.send;
-				socket.send = function(data) {
-					socket.push("message", {
-						data: data,
-						channel: config.channel
-					});
-				};*/
-
 				
 				config.channel = config.channel || this.channel;
-				var websocket = new WebSocket('wss://wsnodejs.nodejitsu.com:443');
+				//'wss://wsnodejs.nodejitsu.com:443'
+				var websocket = new WebSocket('ws://brocast-signalserver.herokuapp.com');
+
 				websocket.onopen = function () {
 					websocket.push(JSON.stringify({
 						open: true,
 						channel: config.channel
 					}));
+
 					if (config.callback) config.callback(websocket);
 				};
+
 				websocket.onerror = function() {
-					alert('Unable to connect to wss://www.webrtc-experiment.com:8563');
+					alert('Unable to connect to wss://wsnodejs.nodejitsu.com:443');
 				};
+
 				websocket.onmessage = function (event) {
 					config.onmessage(JSON.parse(event.data));
 				};
+
 				websocket.push = websocket.send;
+
 				websocket.send = function (data) {
 					websocket.push(JSON.stringify({
 						data: data,
@@ -98,4 +73,3 @@ html
 			}
 
 		div(id="annotations")
-		p Please fucking work
