@@ -5,15 +5,17 @@ html
 		script(src="./javascripts/RTCMultiConnection-v1.9.js")
 		script(src="./javascripts/socket.io-1.0.6.js")
 		link(href='stylesheets/style.css', rel='stylesheet')
+		script(type="text/javascript").
+			$("video").on("click", function(e){
+				var parentOffset = $(this).parent().offset(); 
+
+				var relX = e.pageX - parentOffset.left;
+				var relY = e.pageY - parentOffset.top;
+				console.log(relX+" "+relY)
+			});
 	body
 		h1= title
-		div(class="content")
-			div(id="videoStream")
-			div(id="annotations")
-		div(class="footer")
-			img(class="logo" src="")
-
-			
+		div(id="videoStream")
 		script.
 			var sessionID = "#{sessionID}";
 			var userID = "#{userID}";
@@ -36,19 +38,6 @@ html
 					var relX = e.pageX - parentOffset.left;
 					var relY = e.pageY - parentOffset.top;
 					console.log(relX+" "+relY)
-
-					waitForSocketConnection(websocket, function(){
-						/*try {
-							websocket.push({
-								x: relX,
-								y: relY
-							});
-						} catch(e) {
-							console.log(e)
-						}*/
-						
-					});
-					
 				});
 			};
 
@@ -65,29 +54,11 @@ html
 				connection.join(seshInfo);
 			}
 
-			function waitForSocketConnection(socket, callback){
-			    setTimeout(
-			        function () {
-			            if (socket.readyState === 1) {
-			                console.log("Connection is made")
-			                if(callback != null){
-			                    callback();
-			                }
-			                return;
-
-			            } else {
-			                console.log("wait for connection...")
-			                waitForSocketConnection(socket, callback);
-			            }
-
-			        }, 50); 
-			}
-
 			function openSignalingChannel(config) {
 				
 				config.channel = config.channel || this.channel;
 				//'wss://wsnodejs.nodejitsu.com:443'
-				websocket = new WebSocket('ws://brocast-signalingserver.herokuapp.com');
+				var websocket = new WebSocket('ws://brocast-signalingserver.herokuapp.com');
 
 				websocket.onopen = function () {
 					websocket.push(JSON.stringify({
@@ -99,7 +70,7 @@ html
 				};
 
 				websocket.onerror = function() {
-					alert('Unable to connect to ws://brocast-signalingserver.herokuapp.com');
+					alert('Unable to connect to wss://wsnodejs.nodejitsu.com:443');
 				};
 
 				websocket.onmessage = function (event) {
@@ -114,5 +85,6 @@ html
 						channel: config.channel
 					}));
 				};
-
 			}
+
+		div(id="annotations")
