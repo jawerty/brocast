@@ -7,10 +7,10 @@ body
 		h1= title
 		div(id="videoStream")
 		script.
-			var sessionID = !{sessionID}
-			var userID = !{userID}
+			var sessionID = "#{sessionID}"
+			var userID = "#{userID}"
 			console.log("Begin RTC Connection")
-
+			console.log(sessionID)
 			var connection = new RTCMultiConnection(sessionID);
 
 			connection.bandwidth = {};
@@ -38,6 +38,7 @@ body
 			}
 
 			function openSignalingChannel(config) {
+				var webSocketURI = "ws://brocast-signalingserver.herokuapp.com"
 				config.channel = config.channel || this.channel;
 				//var websocket = new WebSocket(webSocketURI);
 				socket = io.connect(webSocketURI);
