@@ -37,9 +37,16 @@ var server = http.createServer(app).listen(app.get('port'), function(){
 });
 
 var io = require('socket.io').listen(server);
+var fs = require('fs');
 
 io.sockets.on('connection', function(socket) {
-   socket.on('message', function(message) {
-       socket.broadcast.emit('message', message);
-   });
+  var d = new Date();
+  fs.writeFile('log.txt', 'connection reached at: '+d.getTime(), function (err) {
+    if (err) return console.log(err);});
+  socket.on('message', function(message) {
+    var n = new Date();
+    fs.writeFile('log.txt', 'message reached at: '+n.getTime(), function (err) {
+      if (err) return console.log(err);});
+      socket.broadcast.emit('message', message);
+  });
 });
