@@ -10,14 +10,15 @@ var express = require('express')
 
 var app = express();
 
-var io = require('socket.io').listen(app);
+var WebSocketServer = require('ws').Server
+  , wss = new WebSocketServer({server: server});
+wss.on('connection', function(ws) {
+    ws.on('message', function(message) {
+        console.log('received: %s', message);
+    });
+    ws.send('message');
+});
 
- io.sockets.on('connection', function(socket) {
-         socket.on('message', function(message) {
-         socket.broadcast.emit('message', message);
-     });
- });
- 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');

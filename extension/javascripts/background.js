@@ -48,6 +48,28 @@ var webSocketURI = 'ws://brocast-signalingserver.herokuapp.com';
 function openSignalingChannel(config) {
     config.channel = config.channel || this.channel;
     var websocket = new WebSocket(webSocketURI);
+    /*socket = io.connect(webSocketURI);
+    
+    socket.on("connect", function(){
+      socket.push(JSON.stringify({
+            open: true,
+            channel: config.channel
+        }));
+      if (config.callback) config.callback(websocket);
+      console.log('WebSocket connection is opened!');
+    })
+    socket.on("message", function(){
+      config.onmessage(JSON.parse(event.data));
+    });
+
+    socket.push = socket.send;
+    socket.send = function(data) {
+        socket.push(JSON.stringify({
+            data: data,
+            channel: config.channel
+        }));
+    };*/
+    
     websocket.onopen = function() {
         websocket.push(JSON.stringify({
             open: true,
