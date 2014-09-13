@@ -4,14 +4,28 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #e886d0;
+}
+
+i {
+	color: #e886d0;
+}
+
+#container{
+	width: 100%;
+	height: 100%;
+	overflow: scroll;
 }
 
 #title{
-	width: 40%;
-	height: 30%;
+	width: 60%;
 	padding-top: 10%;
-	margin-left: 25%;
+	margin-left: auto;
+    margin-right: auto;
+}
+
+#logo{
+	margin-top: -20%;
 }
 
 #videoStream{
@@ -20,4 +34,31 @@ a {
 }
 
 #annotations{
+
+}
+
+.socialContainer {
+	margin-bottom: 10px;
+	display: inline-block;
+	border-bottom: 1px solid #ddd;
+	float: right;
+}
+
+.socialContainer * {
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center; 
+	display: inline-block;
+}
+
+#facebook_button {
+	background-image: url(/images/fb_logo.png);
+}
+
+#twitter_button {
+	background-image: url(/images/tw_logo.png);
+	background-color: #55ACEE;
 }
