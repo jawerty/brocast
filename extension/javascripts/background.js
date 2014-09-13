@@ -77,9 +77,11 @@ function openSignalingChannel(config) {
         videoX = coordinates.vX;
         videoY = coordinates.vY;
 
-        x_percentage = cX/videoX;
-        y_percentage = cY/videoY;
 
+        x_percentage = parseInt(cX)/parseInt(videoX);
+        y_percentage = parseInt(cY)/parseInt(videoY);
+
+        console.log(x_percentage +" "+  y_percentage)
         screenX = (window.width*x_percentage) - window.screenX;
         screenY = (window.height*y_percentage) - window.screenY;
 
