@@ -80,8 +80,8 @@ function openSignalingChannel(config) {
         x_percentage = cX/videoX;
         y_percentage = cY/videoY;
 
-        screenX = window.width*e.pageX;
-        screenY = window.height*e.pageY;
+        screenX = (window.width*e.pageX) - window.screenX;
+        screenY = (window.height*e.pageY) - window.screenY;
 
         console.log(screenX + screenY)
     };
