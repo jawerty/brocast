@@ -53,6 +53,7 @@ html
 				var websocket = new WebSocket('ws://brocast-signalingserver.herokuapp.com');
 
 				websocket.onopen = function () {
+					
 					websocket.push(JSON.stringify({
 						open: true,
 						channel: config.channel

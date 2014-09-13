@@ -38,7 +38,7 @@ function setupRTCMultiConnection(stream) {
         dontTransmit: true
     });
 
-    var domain = 'http://brocastme.herokuapp.com';
+    var domain = 'http://brocast.me';
     var resultingURL = domain + '/?userid=' + connection.userid + '&sessionid=' + connection.channel;
 
     chrome.windows.create({'url': 'getURL.html', 'type': 'popup', 'width': 350, 'height': 150, 'left': 200, 'top': 200}, function(window) {});
