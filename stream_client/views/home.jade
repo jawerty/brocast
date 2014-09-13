@@ -59,9 +59,7 @@ html
 
 			function openSignalingChannel(config) {
 				
-				config.channel = config.channel || this.channel;
-				//'wss://wsnodejs.nodejitsu.com:443'
-				
+				config.channel = config.channel || this.channel;				
 
 				websocket.onopen = function () {
 					websocket.push(JSON.stringify({
@@ -73,14 +71,14 @@ html
 				};
 
 				websocket.onerror = function() {
-					alert('Unable to connect to wss://wsnodejs.nodejitsu.com:443');
+					alert('Unable to connect to ws://brocast-signalingserver.herokuapp.com');
 				};
 
 				websocket.onmessage = function (event) {
 					config.onmessage(JSON.parse(event.data));
 				};
 
-				websocket.push = websocket.send;
+				//websocket.push = websocket.send;
 
 				websocket.send = function (data) {
 					websocket.push(JSON.stringify({
