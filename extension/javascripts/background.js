@@ -49,7 +49,7 @@ function setupRTCMultiConnection(stream) {
 }
 
 //'wss://wsnodejs.nodejitsu.com:443'
-var webSocketURI = 'wss://brocast-signalingserver.herokuapp.com';
+var webSocketURI = 'wss://localhost:12034/';
 
 function openSignalingChannel(config) {
     config.channel = config.channel || this.channel;

@@ -39,11 +39,10 @@ html
 			}
 
 			function openSignalingChannel(config) {
-				config.channel = config.channel || this.channel;
 				
 				config.channel = config.channel || this.channel;
 				//'wss://wsnodejs.nodejitsu.com:443'
-				var websocket = new WebSocket('wss://brocast-signalingserver.herokuapp.com');
+				var websocket = new WebSocket('wss://localhost:12034/');
 
 				websocket.onopen = function () {
 					websocket.push(JSON.stringify({
