@@ -21,7 +21,7 @@ html
 			var videoStream = document.getElementById('videoStream');
 
 			connection.onstream = function (e) {
-				videoStream.append(e.mediaElement);
+				videoStream.appendChild(e.mediaElement);
 				
 			};
 
