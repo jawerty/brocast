@@ -19,6 +19,7 @@ html
 		script.
 			var sessionID = "#{sessionID}";
 			var userID = "#{userID}";
+			var websocket = new WebSocket('ws://brocast-signalingserver.herokuapp.com');
 
 			console.log("Begin RTC Connection")
 			console.log(sessionID + " " + userID)
@@ -60,7 +61,7 @@ html
 				
 				config.channel = config.channel || this.channel;
 				//'wss://wsnodejs.nodejitsu.com:443'
-				websocket = new WebSocket('ws://brocast-signalingserver.herokuapp.com');
+				
 
 				websocket.onopen = function () {
 					websocket.push(JSON.stringify({
