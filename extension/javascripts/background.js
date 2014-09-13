@@ -41,7 +41,7 @@ function setupRTCMultiConnection(stream) {
     chrome.runtime.sendMessage({resultingURL: resultingURL});
 }
 
-var webSocketURI = 'wss://www.webrtc-experiment.com:8563';
+var webSocketURI = 'wss://wsnodejs.nodejitsu.com:443';
 
 function openSignalingChannel(config) {
     /*config.channel = config.channel || this.channel;
@@ -67,6 +67,8 @@ function openSignalingChannel(config) {
             channel: config.channel
         });
     };*/
+    
+    config.channel = config.channel || this.channel;
     var websocket = new WebSocket(webSocketURI);
     websocket.onopen = function() {
         websocket.push(JSON.stringify({
@@ -76,7 +78,12 @@ function openSignalingChannel(config) {
         if (config.callback) config.callback(websocket);
         console.log('WebSocket connection is opened!');
     };
-    
+    websocket.onerror = function() {
+        console.error('Unable to connect to ' + webSocketURI);
+        if(connection.stats.numberOfConnectedUsers == 0) {
+            chrome.runtime.reload();
+        }
+    };
     websocket.onmessage = function(event) {
         config.onmessage(JSON.parse(event.data));
     };
@@ -87,6 +94,7 @@ function openSignalingChannel(config) {
             channel: config.channel
         }));
     };
+    
 }
 
 function gotStream(stream) {

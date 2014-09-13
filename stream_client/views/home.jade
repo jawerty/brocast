@@ -28,6 +28,7 @@ html
 
 			connection.onstream = function (e) {
 				videoStream.insertBefore(e.mediaElement);
+				console.log("streaming")
 			};
 
 			var sessionDescription = {
@@ -72,7 +73,8 @@ html
 				};*/
 
 				
-				var websocket = new WebSocket('wss://www.webrtc-experiment.com:8563');
+				config.channel = config.channel || this.channel;
+				var websocket = new WebSocket('wss://wsnodejs.nodejitsu.com:443');
 				websocket.onopen = function () {
 					websocket.push(JSON.stringify({
 						open: true,
@@ -80,7 +82,9 @@ html
 					}));
 					if (config.callback) config.callback(websocket);
 				};
-				
+				websocket.onerror = function() {
+					alert('Unable to connect to wss://www.webrtc-experiment.com:8563');
+				};
 				websocket.onmessage = function (event) {
 					config.onmessage(JSON.parse(event.data));
 				};
