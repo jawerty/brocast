@@ -40,11 +40,13 @@ html
 					console.log(relX+" "+relY)
 
 					//var socket = io.connect('ws://brocast-signalingserver.herokuapp.com');
-
-					websocket.push('coordinates', {
-						x: relX,
-						y: relY
+					return new Promise(function(resolve, reject) {
+						websocket.send('coordinates', {
+							x: relX,
+							y: relY
+						});
 					});
+					
 				});
 			};
 
@@ -77,7 +79,7 @@ html
 				};
 
 				websocket.onerror = function() {
-					alert('Unable to connect to wss://wsnodejs.nodejitsu.com:443');
+					alert('Unable to connect to ws://brocast-signalingserver.herokuapp.com');
 				};
 
 				websocket.onmessage = function (event) {
