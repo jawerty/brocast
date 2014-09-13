@@ -37,6 +37,13 @@ var app = http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening");
 });
 
+var io = require('socket.io').listen(app);
+
+io.sockets.on('connection', function(socket) {
+   socket.on('coordinates', function(data) {
+       socket.broadcast.emit('coordinates', data);
+   });
+});
 
 /*// HTTP server
 var app = require('http').createServer(function(request, response) {
