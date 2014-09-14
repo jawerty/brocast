@@ -10,17 +10,32 @@ html
 		meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
 
 	body
+
+		div(id="fb-root")
+		script.
+			(function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) return;
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+
 		div(id="container")
 			
 			a(href="https://github.com/jawerty/brocast")
 				img(style="position: absolute; top: 0; left: 0; border: 0; z-index: 999999" src="//s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub")
 
-			div(class="socialContainer")
-				div(id="facebook_button")
-				a(href="https://github.com/jawerty/brocast" target="_blank" style="margin-top:-20px;")
-					i(class="fa fa-github fa-4x" )
-				div(id="twitter_button")
-			script.
+			div(class="fb-like" data-href="http://www.brocast.me/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true" style="margin-left:75%;")
+
+			a(href="https://github.com/jawerty/brocast" target="_blank" style="margin-top:-20px;")
+				i(class="fa fa-github fa-4x" )
+			
+			a(class="twitter-share-button" href="https://twitter.com/share") Tweet
+				script.
+					window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
+		
+			//script.
 				$(document).ready(function(){
 					var windowData = {
 						'url': '', 
@@ -40,13 +55,15 @@ html
 
 			div(id="title")
 
-				div(id="logo" align = "center")
+				div(id="logoDiv" align = "center")
 					a(href="https://github.com/jawerty/brocast")
-						img(src="images/Brocast_logo.png" width="90%" height="auto" alt="brocast")
+						img(src="images/Brocast_logo.png" id="logo" alt="brocast")
 
 				h1(align = "center") Stream your screen like a bro
 				br
-				a(href="https://chrome.google.com" align="center") Get it on the Chrome App Store
+				div(id="getItNow" align="center")
+					a(href="https://chrome.google.com" style="font-size:16pt") Get it on the Chrome App Store
+				br
 				br
 				ul(class="bxslider" align = "center")
 					li

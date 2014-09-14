@@ -1,10 +1,10 @@
 {
   "name": "brocast",
-  "description": "Share your screen in an instant",
+  "description": "Share your screen in an instant.",
   "version": "0.0.1",
   "manifest_version": 2,
   "browser_action": {
-    "default_icon": "images/Brocast_logo.png",
+    "default_icon": "images/brocast_icon.png",
     "default_title": "Share Screen",
     "default_popup": "popup.html"
   },
@@ -18,7 +18,10 @@
     }
   ],
   "icons": {
-
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png",
+    "512": "icons/icon512.png"
   },
   "permissions": [
     "desktopCapture",
@@ -31,6 +34,7 @@
     "https://*/"
   ],
   "web_accessible_resources": [
-    "images/draw.png"
+    "images/draw.png",
+    "icons/icon48.png"
   ]
 }
