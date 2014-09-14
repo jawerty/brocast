@@ -20,6 +20,9 @@ chrome.runtime.onMessage.addListener(
   	if (request.resultingURL) {
   		url = request.resultingURL;
   		$(".url").text(url);
+  		$("#openInTabButton").click(function() {
+  			chrome.tabs.create({'url': url}, function(tab){});
+  		});
   	}
 });
 
