@@ -3,6 +3,12 @@ body {
   overflow: hidden;
 }
 
+h1 {
+	margin: 2%;
+	color: #444;
+	font-family: Helvetica;
+}
+
 a {
 	margin-left: auto;
 	margin-right: auto;
