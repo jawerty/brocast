@@ -70,24 +70,23 @@ function openSignalingChannel(config) {
     websocket.onmessage = function(event) {
         config.onmessage(JSON.parse(event.data));
         console.log(event);
-        if (remote == true) {
-          var coordinates = JSON.parse(event.data);
+        var coordinates = JSON.parse(event.data);
 
-          cX = coordinates.x;
-          cY = coordinates.y;
-          videoX = coordinates.vX;
-          videoY = coordinates.vY;
+        cX = coordinates.x;
+        cY = coordinates.y;
+        videoX = coordinates.vX;
+        videoY = coordinates.vY;
 
-          x_percentage = cX/videoX;
-          y_percentage = cY/videoY;
+        x_percentage = cX/videoX;
+        y_percentage = cY/videoY;
 
-          console.log(x_percentage + " percentage " + y_percentage)
-          chrome.tabs.query({active: true}, function(tabs){
-              chrome.tabs.sendMessage(tabs[0].id, {data: {x: x_percentage, y: y_percentage}}, function(response) {
-                console.log(response)
-              });  
-          });
-        }
+        console.log(x_percentage + " percentage " + y_percentage)
+        chrome.tabs.query({active: true}, function(tabs){
+            chrome.tabs.sendMessage(tabs[0].id, {data: {x: x_percentage, y: y_percentage}}, function(response) {
+              console.log(response)
+            });  
+        });
+        
     };
     websocket.push = websocket.send;
     websocket.send = function(data) {

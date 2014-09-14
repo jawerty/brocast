@@ -33,7 +33,7 @@ $(document).ready(function(){
 	});
 
 	$("#twitter_button").click(function() {
-		windowData.url = "https://twitter.com/home?status=Join%20my%20Brocast%20session:%20" + url;
+		windowData.url = "https://twitter.com/home?status=Join%20my%20Brocast%20live%20stream:%20"+encodeURIComponent(url);
 		chrome.windows.create(windowData, function(window) {});
 	});
 
