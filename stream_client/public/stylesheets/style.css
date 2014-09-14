@@ -26,12 +26,6 @@ i {
     margin-right: auto;
 }
 
-#logo{
-	margin-top: -5%;
-	width:55%; 
-	height:auto;
-}
-
 #videoStream{
 	float: left;
 	padding-left: 2%;
@@ -69,4 +63,20 @@ i {
 	background-image: url(/images/tw_logo.png);
 	background-color: #55ACEE;
 	margin-left: 10px;
+}
+
+@media screen and (min-device-width : 200px) and (max-device-width : 600px) {
+	#logo{
+		margin-top: -5%;
+		width:90%; 
+		height:auto;
+	}
+}
+
+@media screen and (min-device-width : 601px) {
+	#logo{
+		margin-top: -5%;
+		width:55%; 
+		height:auto;
+	}
 }
