@@ -41,12 +41,10 @@ function setupRTCMultiConnection(stream) {
     var domain = 'http://brocast.me';
     var resultingURL = domain + '/?userid=' + connection.userid + '&sessionid=' + connection.channel;
 
-    chrome.windows.create({'url': 'getURL.html', 'type': 'popup', 'width': 350, 'height': 150, 'left': 200, 'top': 200}, function(window) {});
+    chrome.windows.create({'url': "getURL.html", 'type': 'popup', 'width': 350, 'height': 150, 'left': 200, 'top': 200}, function(window) {});
     chrome.runtime.sendMessage({
         resultingURL: resultingURL
     });
-
-    chrome.tabs.executeScript(null, {file: "javascripts/annotations.js"});
 }
 
 //'wss://wsnodejs.nodejitsu.com:443'
