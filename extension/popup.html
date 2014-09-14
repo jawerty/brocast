@@ -7,10 +7,14 @@
 
 <style type="text/css">
 	body {
-		padding-bottom: 10px;
+		background-color: #eee;
+		padding: 10px;
+		margin: 0;
+		border: 8px solid white;
+		font-weight: bold;
 		width: 265px;
 		font-family: PTSansNarrow, 'Lucida Grande', Verdana, serif;
-		font-weight: bold;
+		text-align: center;
 	}
 
 	body * {
@@ -18,22 +22,36 @@
 		user-select: none;
 	}
 	
+	.logoContainer {
+	}
+	.logo {
+		width: auto;
+		height: 84px;
+		margin-bottom: 10px;
+		cursor: pointer;
+	}
+
+	.form {
+		
+		margin-bottom: 5px;
+		border-top: 1px solid #ddd;
+		padding: 4px;
+	}
+
 	.form *{
 		display: inline-block;
 	}
 
-	.playContainer {
-		width:30px;
-		height:30px;
-	}
 
 	.play {
 		cursor: pointer;
-		width:30px;
-		height:30px;
+		margin: auto;
+		width: 100px;
+		height:40px;
 		background-image: url(images/play_normal.png) ;
 		background-repeat: no-repeat;
 		background-size: contain;
+		background-position: center;
 	}
 
 	.play:hover {
@@ -81,7 +99,7 @@
 	.onoffswitch-inner:before {
 	    content: "ON";
 	    padding-left: 10px;
-	    background-color: #87D990; color: #FFFFFF;
+	    background-color: #EC9AD3; color: #FFFFFF;
 	}
 
 	.onoffswitch-inner:after {
@@ -112,13 +130,21 @@
 	    right: 0px; 
 	}
 
+	footer {
+		margin-top: 10px;
+		font-size: 8pt;
+	}
+
+	footer span {
+		cursor: pointer;
+	}
 </style>
 
-<body>
+<body>	
+	<div class="logoContainer">
+		<img class="logo" src="images/brocast_logo.png"/>
+	</div>
 	<div class="form">
-		<div class="playButtonContainer">
-			<div class="play"></div>
-		</div>
 
 		<div class="checkboxes">
 			<div class="switch">
@@ -145,6 +171,10 @@
 			</div>
 		</div>
 	</div>
+	<div class="playButtonContainer">
+		<div class="play"></div>
+	</div>
 	
+	<footer>Copyright <span>Brocast</span> 2014</footer>
 </body>
 </html>

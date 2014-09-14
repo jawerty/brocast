@@ -68,12 +68,16 @@
 		user-select: none;
 	}
 
-	#copyButton {
+	.button {
 		background-color: #aaa;
 	}
 
-	#copyButton:hover {
+	.button:hover {
 		background-color: #666;
+	}
+
+	#openInTabButton {
+		margin-top: 5px;
 	}
 </style>
 
@@ -88,8 +92,9 @@
 		<div class="urlContainer">
 			<span class="url"></span>
 		</div>
-		<button id="copyButton" class="button">Copy</button>
 	</div>
+	<button id="copyButton" class="button">Copy</button>
+	<button id="openInTabButton" class="button">Open in tab</button>
 
 </body>
 </html>
