@@ -70,22 +70,24 @@ function openSignalingChannel(config) {
     websocket.onmessage = function(event) {
         config.onmessage(JSON.parse(event.data));
         console.log(event);
-        var coordinates = JSON.parse(event.data);
+        if (remote == true) {
+          var coordinates = JSON.parse(event.data);
 
-        cX = coordinates.x;
-        cY = coordinates.y;
-        videoX = coordinates.vX;
-        videoY = coordinates.vY;
+          cX = coordinates.x;
+          cY = coordinates.y;
+          videoX = coordinates.vX;
+          videoY = coordinates.vY;
 
-        x_percentage = cX/videoX;
-        y_percentage = cY/videoY;
+          x_percentage = cX/videoX;
+          y_percentage = cY/videoY;
 
-        console.log(videoX + " " + cX/videoX)
-        chrome.tabs.query({active: true}, function(tabs){
-            chrome.tabs.sendMessage(tabs[0].id, {data: {x: x_percentage, y: y_percentage}}, function(response) {
-              console.log(response)
-            });  
-        });
+          console.log(x_percentage + " percentage " + y_percentage)
+          chrome.tabs.query({active: true}, function(tabs){
+              chrome.tabs.sendMessage(tabs[0].id, {data: {x: x_percentage, y: y_percentage}}, function(response) {
+                console.log(response)
+              });  
+          });
+        }
     };
     websocket.push = websocket.send;
     websocket.send = function(data) {
@@ -140,7 +142,15 @@ function onAccessApproved(id) {
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
 
-    if (request.useAnnotations && request.useRemoteControl) {
+    if (request.useRemoteControl === true) {
+      remote = true;
+    }
+
+    if (request.useAnnotations === true) {
+      remote = true;
+    }
+
+    if (typeof request.useAnnotations != "undefined" && typeof request.useRemoteControl != "undefined" ) {
       var socket = io();
       var channel = location.href.replace( /\/|:|#|%|\.|\[|\]/g , '');
       var sender = Math.round(Math.random() * 999999999) + 999999999;
@@ -150,6 +160,7 @@ chrome.runtime.onMessage.addListener(
       pending_request_id = chrome.desktopCapture.chooseDesktopMedia(
           ["screen", "window"], onAccessApproved);
     }
+
     if (request.data) {
       console.log("got it")
     }
