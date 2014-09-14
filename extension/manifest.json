@@ -14,7 +14,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["javascripts/jquery-1.11.1.js", "javascripts/jquery-ui.min.js", "javascripts/annotations.js"]
+      "js": ["javascripts/jquery-1.11.1.js", "javascripts/jquery-ui.min.js", "javascripts/content.js", "javascripts/annotations.js"]
     }
   ],
   "icons": {

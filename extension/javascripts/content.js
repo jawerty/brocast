@@ -9,6 +9,6 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       $(element).click()
       sendResponse({ data: 'pong' });
 	} else {
-	  sendResponse({ data: 'pong' });
+		sendResponse({data : 'notpong'})
 	}
 });
