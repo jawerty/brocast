@@ -4,11 +4,11 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       screenY = $(window).height()*msg.data.y;
 
       console.log(screenX +" "+ screenY);
-      element = document.elementFromPoint(screenX - window.pageXOffset, screenY + (window.pageYOffset - window.screen.height);
+      element = document.elementFromPoint(screenX, screenY);
       console.log(element)
       $(element).click()
       sendResponse({ data: 'pong' });
 	} else {
-	  sendResponse({ data: 'notpong' });
+	  sendResponse({ data: 'pong' });
 	}
 });

@@ -82,6 +82,7 @@ function openSignalingChannel(config) {
         x_percentage = cX/videoX;
         y_percentage = cY/videoY;
 
+        console.log(videoX + " " + cX/videoX)
         chrome.tabs.query({active: true}, function(tabs){
             chrome.tabs.sendMessage(tabs[0].id, {data: {x: x_percentage, y: y_percentage}}, function(response) {
               console.log(response)
@@ -155,8 +156,6 @@ chrome.runtime.onMessage.addListener(
       console.log("got it")
     }
     
-});
-
 });
 
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
