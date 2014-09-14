@@ -8,11 +8,14 @@ html
 		script(src="javascripts/jquery.bxslider.js")
 		link(href="stylesheets/jquery.bxslider.css" rel="stylesheet")
 		meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
-
+		link(rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/brocast/nlhljljckfcpbiiojnaicjdanjagaidg")
 	body
 
 		div(id="fb-root")
 		script.
+			if (chrome.app.isInstalled) {
+				document.getElementById('install-button').style.display = 'none';
+			}
 			(function(d, s, id) {
 				var js, fjs = d.getElementsByTagName(s)[0];
 				if (d.getElementById(id)) return;
@@ -45,6 +48,7 @@ html
 				br
 				div(id="getItNow" align="center")
 					a(href="https://chrome.google.com" style="font-size:16pt") Get it on the Chrome App Store
+					button(onclick="chrome.webstore.install()" id="install-button") Add to Chrome
 				br
 				br
 				ul(class="bxslider" align = "center")
