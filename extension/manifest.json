@@ -13,8 +13,8 @@
   },
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*"],
-      "js": ["javascripts/jquery-1.11.1.js", "javascripts/content.js"]
+      "matches": ["<all_urls>"],
+      "js": ["javascripts/jquery-1.11.1.js", "javascripts/jquery-ui.min.js", "javascripts/annotations.js"]
     }
   ],
   "icons": {
@@ -27,6 +27,10 @@
     "webRequest",
     "webRequestBlocking",
     "clipboardWrite",
-    "https://www.facebook.com/"
+    "http://*/",
+    "https://*/"
+  ],
+  "web_accessible_resources": [
+    "images/draw.png"
   ]
 }

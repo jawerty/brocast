@@ -1,0 +1,81 @@
+<!doctype html>
+
+<html>
+	<head>
+		<style type="text/css">
+
+			#brocast_sketchpad {
+				position: fixed;
+				z-index: 9999;
+				background-color: transparent;
+			}
+
+			#brocast_annotations {
+				position: fixed;
+				z-index: 10000;
+				width: 100%;
+				padding:5px;
+				background-color: #ddd;
+				border-bottom: 1px solid #aaa;
+			}
+
+			#brocast_annotations * {
+				display: inline-block;
+				vertical-align: middle;
+			}
+
+			.brocast.button {
+			    border-bottom-left-radius: 6px;
+			    border-bottom-right-radius: 6px;
+			    border-right-width: 1px;
+			    border-top-left-radius: 6px;
+			    border-top-right-radius: 6px;
+			    border-width: 0px;
+			    background-color: #ADD0D6;
+			    font-family: PTSansNarrow, 'Lucida Grande', Verdana, serif;
+			    color: #fff;
+			    padding: 4px 8px 4px 8px;
+			    font-weight: normal;
+			}
+
+			.brocast.annotateButton {
+				width: 30px;
+				height: 30px;
+				background-repeat: no-repeat;
+				background-position:center;
+				background-size: 20px 20px;
+				background-color: #666;
+				border-radius: 4px;
+				cursor: pointer;
+			}
+
+			.brocast.annotateButton.active {
+				background-color: #000;
+			}
+
+			.brocast.controls {
+				margin-right: 20px;
+				float:right;
+			}
+
+			.brocast.controls span{
+				margin-left: 10px;
+			}
+
+		</style>
+	</head>
+	<body>
+		<canvas id="brocast_sketchpad" style="display:none"></canvas>
+
+		<div id="brocast_annotations" class="brocast" style="display: none">
+			<div id="brocast_draw_button" class="brocast annotateButton"></div>
+			<div class="brocast controls">
+				<span>Stroke weight:</span>
+				<input id="brocast_stroke_weight" type="range" name="points" min="1" max="20">	
+				<span>Color:</span>
+				<input id="brocast_color" type="color" name="favcolor">
+			</div>
+
+		</div>
+	</body>
+</html>

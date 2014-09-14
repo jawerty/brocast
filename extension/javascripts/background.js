@@ -45,6 +45,8 @@ function setupRTCMultiConnection(stream) {
     chrome.runtime.sendMessage({
         resultingURL: resultingURL
     });
+
+    chrome.tabs.executeScript(null, {file: "javascripts/annotations.js"});
 }
 
 //'wss://wsnodejs.nodejitsu.com:443'
@@ -148,5 +150,23 @@ chrome.runtime.onMessage.addListener(
       pending_request_id = chrome.desktopCapture.chooseDesktopMedia(
           ["screen", "window"], onAccessApproved);
     }
-    
+
 });
+
+chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+    if(request.cmd == "read_file") {
+        $.ajax({
+            url: chrome.extension.getURL("annotations.html"),
+            dataType: "html",
+            success: function(html) {
+              var drawImageURL = chrome.extension.getURL("images/draw.png");
+              var response = {
+                html: html,
+                drawImageURL: drawImageURL
+              }
+              console.log("DRAW drawImageURL:" + drawImageURL);
+              sendResponse(response);
+            }
+        });
+    }
+})
