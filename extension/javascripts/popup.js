@@ -14,7 +14,17 @@ $(document).ready(function() {
 		chrome.runtime.sendMessage({
 			cmd: "stopStream"
 		}, function(){
-			playStopButton.addClass("play").removeClass("stop");	
+			playStopButton.addClass("play").removeClass("stop");
+
+			chrome.tabs.query({}, function(tabs) {
+			    for (var i = tabs.length - 1; i >= 0; i--) {
+			      var tab = tabs[i];
+			      chrome.tabs.sendMessage(tab.id, {
+			        cmd: "changeAnnotations",
+			        showAnnotations: false
+			      });
+			    };
+		    });	
 		});
 	});
 
@@ -31,13 +41,6 @@ $(document).ready(function() {
 			playStopButton.addClass("stop").removeClass("play");
 			$(".form").hide();
 
-			// var text;
-			// if ($("#remote_control_box").prop("checked")) {
-			// 	text = "Remote control is enabled";
-			// } else {
-			// 	text = "Remote control is disabled";
-			// }
-			// $("#remoteControlStatus").text(text).show();
 		} else {
 			playStopButton.addClass("play").removeClass("stop");
 			$(".form").show();

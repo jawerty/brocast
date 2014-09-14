@@ -48,6 +48,7 @@ function setupRTCMultiConnection(stream) {
       if (request.cmd == "stopStream") {
         connection.close();
         streaming = false;
+        showAnnotations = false;
       }
       sendResponse();
   });
