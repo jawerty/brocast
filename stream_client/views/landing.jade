@@ -7,30 +7,46 @@ html
 		script(src="javascripts/jquery.bxslider.min.js")
 		script(src="javascripts/jquery.bxslider.js")
 		link(href="stylesheets/jquery.bxslider.css" rel="stylesheet")
+		meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
 
 	body
 		div(id="container")
 			
 			a(href="https://github.com/jawerty/brocast")
-				img(style="position: absolute; top: 0; left: 0; border: 0;" src="//s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub")
+				img(style="position: absolute; top: 0; left: 0; border: 0; z-index: 999999" src="//s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub")
 
 			div(class="socialContainer")
 				div(id="facebook_button")
+				a(href="https://github.com/jawerty/brocast" target="_blank" style="margin-top:-20px;")
+					i(class="fa fa-github fa-4x" )
 				div(id="twitter_button")
-				a(href="https://github.com/jawerty/brocast" target="_blank" style="align=center;")
-					i(class="fa fa-github fa-4x")
+			script.
+				$(document).ready(function(){
+					var windowData = {
+						'url': '', 
+						'type': 'popup',
+						'width': 500,
+						'height': 300
+					}
+
+					$("#facebook_button").click(function() {
+						window.open("https://www.facebook.com/sharer/sharer.php?u=brocast.me", function(window) {});
+					});
+
+					$("#twitter_button").click(function() {
+						window.open("https://twitter.com/home?status=Brocast%20is%20so%20cool!%20It%20was%20built%20by%20@jawerty,%20@bogidon%20and%20@elklein96%20at%20PennApps%202014f.", function(window) {});
+					});
+				});
 
 			div(id="title")
 
-				a(href="https://github.com/jawerty/brocast" id="logo")
-					img(src="images/Brocast_logo.png" width="400" height="220" alt="brocast")
+				div(id="logo" align = "center")
+					a(href="https://github.com/jawerty/brocast")
+						img(src="images/Brocast_logo.png" width="90%" height="auto" alt="brocast")
 
-				h2 Stream your screen like a bro
+				h1(align = "center") Stream your screen like a bro
 				br
-				p Built during PennApps 2014f by 
-					a(href="https://github.com/jawerty")@jawerty, 
-					a(href="https://github.com/bogidon")@bogidon, 
-					a(href="https://github.com/elklein96")@elklein96
+				a(href="https://chrome.google.com") Get it on the Chrome App Store
 				br
 				ul(class="bxslider" align = "center")
 					li
@@ -41,11 +57,11 @@ html
 						img(src="images/3.png")
 
 				div(id="bx-pager")
-					a(data-slide-index="0" href="")
+					a(data-slide-index="0" href="" style="margin-right:5px;")
 						img(src="images/thumbs/1.png")
-					a(data-slide-index="1" href="")
+					a(data-slide-index="1" href="" style="margin-right:5px;")
 						img(src="images/thumbs/2.png")
-					a(data-slide-index="2" href="")
+					a(data-slide-index="2" href="" style="margin-right:5px;")
 						img(src="images/thumbs/3.png")
 
 				script.
@@ -54,3 +70,11 @@ html
 							pagerCustom: '#bx-pager'
 						});
 					});
+				br
+
+				h3(align = "center") Built during PennApps 2014f by 
+					a(href="https://github.com/jawerty")@jawerty, 
+					a(href="https://github.com/bogidon")@bogidon, 
+					a(href="https://github.com/elklein96")@elklein96
+				br
+				br
