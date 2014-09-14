@@ -4,7 +4,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       screenY = $(window).height()*msg.data.y;
 
       console.log(screenX +" "+ screenY + " final");
-      element = document.elementFromPoint(screenX -22, screenY - 66);
+      element = document.elementFromPoint(screenX - 22, screenY - 66);
       console.log(element)
       $(element).click()
       sendResponse({ data: 'pong' });
