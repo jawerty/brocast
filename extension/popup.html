@@ -23,6 +23,8 @@
 	}
 	
 	.logoContainer {
+		border-bottom: 1px solid #ddd;
+		margin-bottom: 3px;
 	}
 	.logo {
 		width: auto;
@@ -32,9 +34,7 @@
 	}
 
 	.form {
-		
 		margin-bottom: 5px;
-		border-top: 1px solid #ddd;
 		padding: 4px;
 	}
 
@@ -42,24 +42,34 @@
 		display: inline-block;
 	}
 
+	#remoteControlStatus {
+		margin: 10px 0px;
+	}
 
-	.play {
+	.playStopButtonContainer * {
 		cursor: pointer;
 		margin: auto;
 		width: 100px;
 		height:40px;
-		background-image: url(images/play_normal.png) ;
 		background-repeat: no-repeat;
 		background-size: contain;
 		background-position: center;
+	}
+
+	.play {
+		background-image: url(images/play_normal.png) ;
 	}
 
 	.play:hover {
 		background-image: url(images/play_hover.png);
 	}
 
-	.play:active {
-		background-image: url(images/play_normal.png);
+	.stop {
+		background-image: url(images/stop_normal.png);
+	}
+
+	.stop:hover {
+		background-image: url(images/stop_hover.png);
 	}
 
 	.switch {
@@ -171,7 +181,10 @@
 			</div>
 		</div>
 	</div>
-	<div class="playButtonContainer">
+
+	<!-- <p id="remoteControlStatus" style="display:hidden">Remote control is disabled</p> -->
+
+	<div class="playStopButtonContainer">
 		<div class="play"></div>
 	</div>
 	

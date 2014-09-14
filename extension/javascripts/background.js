@@ -6,45 +6,67 @@ function error() {
 }  
         
 var connection;
+var streaming = false;
+var showAnnotations = false;
 
 function setupRTCMultiConnection(stream) {
-    connection = new RTCMultiConnection();
-    
-    connection.channel = connection.token();
-    
-    connection.autoReDialOnFailure = true;
+  connection = new RTCMultiConnection();
+  
+  connection.channel = connection.token();
+  
+  connection.autoReDialOnFailure = true;
 
-    connection.bandwidth = {
-        video: 300 
+  connection.bandwidth = {
+      video: 300 
+  };
+
+  connection.session = {
+      video: true,
+      oneway: true
+  };
+
+  connection.sdpConstraints.mandatory = {
+      OfferToReceiveAudio: false,
+      OfferToReceiveVideo: false
+  };
+
+  connection.openSignalingChannel = openSignalingChannel;
+
+  connection.dontAttachStream = true;
+
+  connection.attachStreams.push(stream);
+
+  var sessionDescription = connection.open({
+      dontTransmit: true
+  });
+
+  var domain = 'http://brocast.me';
+  var resultingURL = domain + '/?userid=' + connection.userid + '&sessionid=' + connection.channel;
+
+  chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+      if (request.cmd == "stopStream") {
+        connection.close();
+        streaming = false;
+      }
+      sendResponse();
+  });
+
+
+  chrome.windows.create({'url': "getURL.html", 'type': 'popup', 'width': 450, 'height': 200, 'left': 200, 'top': 200}, function(window) {});
+  chrome.runtime.sendMessage({
+      resultingURL: resultingURL
+  });
+
+  chrome.tabs.query({}, function(tabs) {
+    for (var i = tabs.length - 1; i >= 0; i--) {
+      var tab = tabs[i];
+      chrome.tabs.sendMessage(tab.id, {
+        cmd: "changeAnnotations",
+        showAnnotations: showAnnotations
+      });
     };
-
-    connection.session = {
-        video: true,
-        oneway: true
-    };
-
-    connection.sdpConstraints.mandatory = {
-        OfferToReceiveAudio: false,
-        OfferToReceiveVideo: false
-    };
-
-    connection.openSignalingChannel = openSignalingChannel;
-
-    connection.dontAttachStream = true;
-
-    connection.attachStreams.push(stream);
-
-    var sessionDescription = connection.open({
-        dontTransmit: true
-    });
-
-    var domain = 'http://brocast.me';
-    var resultingURL = domain + '/?userid=' + connection.userid + '&sessionid=' + connection.channel;
-
-    chrome.windows.create({'url': "getURL.html", 'type': 'popup', 'width': 450, 'height': 200, 'left': 200, 'top': 200}, function(window) {});
-    chrome.runtime.sendMessage({
-        resultingURL: resultingURL
-    });
+  });
 }
 
 //'wss://wsnodejs.nodejitsu.com:443'
@@ -60,6 +82,7 @@ function openSignalingChannel(config) {
         }));
         if (config.callback) config.callback(websocket);
         console.log('WebSocket connection is opened!');
+        streaming = true;
     };
     websocket.onerror = function() {
         console.error('Unable to connect to ' + webSocketURI);
@@ -95,6 +118,13 @@ function openSignalingChannel(config) {
             channel: config.channel
         }));
     };
+    chrome.runtime.onMessage.addListener(
+      function(request, sender, sendResponse) {
+        if (request.cmd == "stopStream") {
+          websocket.close();
+          streaming = false;
+        }
+    });
     
 }
 
@@ -140,16 +170,11 @@ function onAccessApproved(id) {
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
+    if (request.cmd == "startShare") {
 
-    if (request.useRemoteControl === true) {
-      remote = true;
-    }
+      remote = request.useRemoteControl;
+      showAnnotations = request.useAnnotations;
 
-    if (request.useAnnotations === true) {
-      remote = true;
-    }
-
-    if (typeof request.useAnnotations != "undefined" && typeof request.useRemoteControl != "undefined" ) {
       var socket = io();
       var channel = location.href.replace( /\/|:|#|%|\.|\[|\]/g , '');
       var sender = Math.round(Math.random() * 999999999) + 999999999;
@@ -175,6 +200,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
               var drawImageURL = chrome.extension.getURL("images/draw.png");
               var response = {
                 html: html,
+                showAnnotations: showAnnotations,
                 drawImageURL: drawImageURL
               }
               console.log("DRAW drawImageURL:" + drawImageURL);
@@ -182,4 +208,11 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
             }
         });
     }
+})
+
+chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+    if(request.cmd == "play_status") {
+        sendResponse(streaming)
+    }
+    return;
 })

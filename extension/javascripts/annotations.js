@@ -1,10 +1,11 @@
+var canvas, ctx, isDrawing;
+var barShouldSlide = true;
+var shouldDraw = false;
+
 chrome.extension.sendRequest({cmd: "read_file"}, function(response){
     $(document.body).prepend(response.html);
     $("#brocast_draw_button").css({"background-image": "url(" + response.drawImageURL + ")"});
 
-    var canvas, ctx, isDrawing;
-    var barShouldSlide = true;
-    var shouldDraw = false;
 	r=0; g=0; b=0; a=255;
 
 	function setupCanvas() {
@@ -12,14 +13,19 @@ chrome.extension.sendRequest({cmd: "read_file"}, function(response){
 		canvas.width = document.body.clientWidth;
 		canvas.height = document.body.clientHeight;
 		ctx = canvas.getContext('2d');
+		ctx.lineWidth = $("#brocast_stroke_weight[type=range]").val();
 	}
 
 	setupCanvas();
 
+	if (!response.showAnnotations) {
+		barShouldSlide = false;
+		$("#brocast_annotations").hide();
+	}
+
     $(document).on("mousedown", "canvas", function(e) {
     	if (shouldDraw) {
 			isDrawing = true;
-			ctx.lineWidth = $("#brocast_stroke_weight[type=range]").val();
 			ctx.lineJoin = ctx.lineCap = 'round';
 			ctx.moveTo(e.clientX, e.clientY);
 		}
@@ -60,7 +66,7 @@ chrome.extension.sendRequest({cmd: "read_file"}, function(response){
 	$(document).mousemove(function(event) {
 		var annotations = $("#brocast_annotations");
 
-		if (event.clientY <= 1) {
+		if (event.clientY <= 1 && barShouldSlide) {
 			annotations.slideDown();
 		} else {
 			if (event.clientY > (parseInt(annotations.css("height")) + 20) && barShouldSlide) {
@@ -71,5 +77,19 @@ chrome.extension.sendRequest({cmd: "read_file"}, function(response){
 	}); 
 });
 
-$(document).ready(function() {
-});	
+chrome.runtime.onMessage.addListener( function(message, sender) {
+    if(message.cmd === "changeAnnotations") {
+    	if (message.showAnnotations) {
+    		barShouldSlide = true;
+    	} else {
+    		barShouldSlide = false;
+    		$(canvas).hide();
+    	}
+    	shouldDraw = false;
+    	$("#brocast_sketchpad").remove();
+		$("body").prepend("<canvas id='brocast_sketchpad' style='display:none'></canvas>");
+		$("#brocast_draw_button").removeClass("active");
+		$("#brocast_annotations").hide();
+    }
+    return;
+})
