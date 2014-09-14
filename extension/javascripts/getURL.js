@@ -24,7 +24,6 @@ chrome.runtime.onMessage.addListener(
 });
 
 $(document).ready(function(){
-
 	$("#facebook_button").click(function() {
 		windowData.url = "https://www.facebook.com/sharer/sharer.php?u=" + url;
 		chrome.windows.create(windowData, function(window) {});
