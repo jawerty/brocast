@@ -25,34 +25,16 @@ html
 			
 			a(href="https://github.com/jawerty/brocast")
 				img(style="position: absolute; top: 0; left: 0; border: 0; z-index: 999999" src="//s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub")
-
-			div(class="fb-like" data-href="http://www.brocast.me/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true" style="margin-left:75%;")
-
-			a(href="https://github.com/jawerty/brocast" target="_blank" style="margin-top:-20px;")
-				i(class="fa fa-github fa-4x" )
 			
-			a(class="twitter-share-button" href="https://twitter.com/share") Tweet
-				script.
-					window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
-		
-			//script.
-				$(document).ready(function(){
-					var windowData = {
-						'url': '', 
-						'type': 'popup',
-						'width': 500,
-						'height': 300
-					}
+			div(id="social")
+				iframe(src="http://ghbtns.com/github-btn.html?user=jawerty&repo=brocast&type=star" allowtransparency="true" frameborder="0" scrolling="0" width="62" height="20")
 
-					$("#facebook_button").click(function() {
-						window.open("https://www.facebook.com/sharer/sharer.php?u=brocast.me", function(window) {});
-					});
+				a(class="twitter-share-button" href="https://twitter.com/share" ) Tweet
+					script.
+						window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
 
-					$("#twitter_button").click(function() {
-						window.open("https://twitter.com/home?status=Brocast%20is%20so%20cool!%20It%20was%20built%20by%20@jawerty,%20@bogidon%20and%20@elklein96%20at%20PennApps%202014f.", function(window) {});
-					});
-				});
-
+				div(class="fb-like" data-href="http://www.brocast.me/" data-layout="button" data-action="like" data-show-faces="true" data-share="true")
+			
 			div(id="title")
 
 				div(id="logoDiv" align = "center")

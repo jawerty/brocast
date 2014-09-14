@@ -35,34 +35,15 @@ i {
 
 }
 
-
-
-.socialContainer {
-	margin-bottom: 25px;
+#social{
 	display: inline-block;
 	float: right;
+	margin-right: 5%;
 }
 
-.socialContainer * {
-	width: 45px;
-	height: 45px;
-	cursor: pointer;
-	background-repeat: no-repeat;
-	background-size: contain;
-	background-position: center; 
-	display: inline-block;
-}
-
-#facebook_button {
-	background-image: url(/images/fb_logo.png);
-	padding-left: -33px;
-	margin-right: 5px;
-}
-
-#twitter_button {
-	background-image: url(/images/tw_logo.png);
-	background-color: #55ACEE;
-	margin-left: 10px;
+#widget{
+	float: right;
+	margin-right: 10px;
 }
 
 @media screen and (min-device-width : 200px) and (max-device-width : 600px) {
