@@ -3,22 +3,54 @@ html
 		title="brocast - simple streaming"
 		script(src="https://code.jquery.com/jquery-2.1.1.min.js")
 		link(href='stylesheets/style.css', rel='stylesheet')
-		link(href='stylesheets/bootstrap.css', rel='stylesheet')
+		link(href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet")
+		script(src="javascripts/jquery.bxslider.min.js")
+		script(src="javascripts/jquery.bxslider.js")
+		link(href="stylesheets/jquery.bxslider.css" rel="stylesheet")
 
 	body
-		a(href="https://github.com/jawerty/brocast")
-			img(style="position: absolute; top: 0; left: 0; border: 0;" src="//s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub")
-		
-		div(id="title")
-			h1 brocast
-			h2 Stream your screen like a bro
-			br
-			br
-			p Built during PennApps 2014f by 
-				a(href="https://github.com/jawerty")@jawerty, 
-				a(href="https://github.com/bogidon")@bogidon, 
-				a(href="https://github.com/elklein96")@elklein96
-			br
-			p
-				a(href="https://github.com/conradev/webn.es" target="_blank")
+		div(id="container")
+			
+			a(href="https://github.com/jawerty/brocast")
+				img(style="position: absolute; top: 0; left: 0; border: 0;" src="//s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub")
+
+			div(class="socialContainer")
+				div(id="facebook_button")
+				div(id="twitter_button")
+				a(href="https://github.com/jawerty/brocast" target="_blank" style="align=center;")
 					i(class="fa fa-github fa-4x")
+
+			div(id="title")
+
+				a(href="https://github.com/jawerty/brocast" id="logo")
+					img(src="images/Brocast_logo.png" width="400" height="220" alt="brocast")
+
+				h2 Stream your screen like a bro
+				br
+				p Built during PennApps 2014f by 
+					a(href="https://github.com/jawerty")@jawerty, 
+					a(href="https://github.com/bogidon")@bogidon, 
+					a(href="https://github.com/elklein96")@elklein96
+				br
+				ul(class="bxslider" align = "center")
+					li
+						img(src="images/1.png")
+					li
+						img(src="images/2.png")
+					li
+						img(src="images/3.png")
+
+				div(id="bx-pager")
+					a(data-slide-index="0" href="")
+						img(src="images/thumbs/1.png")
+					a(data-slide-index="1" href="")
+						img(src="images/thumbs/2.png")
+					a(data-slide-index="2" href="")
+						img(src="images/thumbs/3.png")
+
+				script.
+					$(document).ready(function(){
+						$('.bxslider').bxSlider({
+							pagerCustom: '#bx-pager'
+						});
+					});
