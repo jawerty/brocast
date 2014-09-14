@@ -133,23 +133,6 @@ function gotStream(stream) {
   console.log(stream);
 
   setupRTCMultiConnection(stream);
-
-  /*$.ajax({ 
-      url: "http://localhost:3000", 
-      data: "screenshare="+JSON.stringify(stream), 
-      success: function(data){
-        console.log(data)
-      }, 
-      type: 'POST', 
-      dataType: 'json' 
-  });*/
-
-  chrome.storage.sync.set({"stream": stream}, function(data) {
-    //chrome.tabs.create({'url': chrome.extension.getURL('stream.html')}, function(tab) {
-      //console.log(tab)
-    //});
-
-  });
 }
 
 function getUserMediaError() {
