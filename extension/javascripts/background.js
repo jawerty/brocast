@@ -3,8 +3,8 @@ function error() {
   if(connection.stats.numberOfConnectedUsers == 0) {
       chrome.runtime.reload();
   }
-}  
-        
+}
+
 var connection;
 var streaming = false;
 var showAnnotations = false;
@@ -58,6 +58,7 @@ function setupRTCMultiConnection(stream) {
   chrome.runtime.sendMessage({
       resultingURL: resultingURL
   });
+  _gaq.push(['_trackEvent', "extension background", 'connection established']);
 
   chrome.tabs.query({}, function(tabs) {
     for (var i = tabs.length - 1; i >= 0; i--) {
@@ -158,6 +159,13 @@ chrome.runtime.onMessage.addListener(
 
       remote = request.useRemoteControl;
       showAnnotations = request.useAnnotations;
+
+      if (!remote) {
+        _gaq.push(['_trackEvent', "extension background", 'annotations disabled']);
+      }
+      if (!showAnnotations) {
+        _gaq.push(['_trackEvent', "extension background", 'remote control disabled']);
+      }
 
       var socket = io();
       var channel = location.href.replace( /\/|:|#|%|\.|\[|\]/g , '');
