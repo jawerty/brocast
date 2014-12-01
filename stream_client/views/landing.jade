@@ -41,10 +41,7 @@ html
 			div(id="social")
 				iframe(src="http://ghbtns.com/github-btn.html?user=jawerty&repo=brocast&type=star" allowtransparency="true" frameborder="0" scrolling="0" width="62" height="20")
 
-				a(class="twitter-share-button" href="https://twitter.com/share" ) Tweet
-					script.
-						window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
-
+				
 				div(class="fb-like" data-href="http://www.brocast.me/" data-layout="button" data-action="like" data-show-faces="true" data-share="true")
 			
 			div(id="title")
@@ -53,10 +50,16 @@ html
 					a(href="https://github.com/jawerty/brocast")
 						img(src="images/Brocast_logo.png" id="logo" alt="brocast")
 
-				h1(align = "center") Stream your screen like a bro
+				h1(align = "center") Browser extension for sharing your screen in real-time
+				<div align="center">
+				a(class="twitter-share-button" href="https://twitter.com/share" ) Tweet
+					script.
+						window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
+				</div>
+				br
 				br
 				div(id="getItNow" align="center")
-					a(href="https://chrome.google.com/webstore/detail/brocast/nlhljljckfcpbiiojnaicjdanjagaidg" style="font-size:16pt") Get it on the Chrome Web Store
+					a(id="nowButton", href="https://chrome.google.com/webstore/detail/brocast/nlhljljckfcpbiiojnaicjdanjagaidg" style="font-size:16pt") <b>Download</b> from the Chrome Web Store
 				br
 				br
 				br

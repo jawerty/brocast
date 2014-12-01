@@ -67,3 +67,11 @@ i {
 		height:auto;
 	}
 }
+
+#nowButton {
+	text-decoration: none;
+	padding: 10px;
+	background-color: #e886d0;
+	color: #fff;
+	border-radius: 10px;
+}
